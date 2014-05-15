@@ -36,14 +36,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\odp.net.x86.112.3.0\lib\net20\Oracle.DataAccess.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
+    <Reference Include="NServiceKit.Common">
+      <HintPath>..\..\..\lib\NServiceKit.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="NServiceKit.Interfaces">
+      <HintPath>..\..\..\lib\NServiceKit.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
+    <Reference Include="NServiceKit.Text">
+      <HintPath>..\..\..\lib\NServiceKit.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -57,13 +57,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
+    <ProjectReference Include="..\..\NServiceKit.OrmLite\NServiceKit.OrmLite.csproj">
       <Project>{96179AC6-F6F1-40C3-9FDD-4F6582F54C5C}</Project>
-      <Name>ServiceStack.OrmLite</Name>
+      <Name>NServiceKit.OrmLite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ServiceStack.OrmLite.Firebird\ServiceStack.OrmLite.Firebird.csproj">
+    <ProjectReference Include="..\..\NServiceKit.OrmLite.Firebird\NServiceKit.OrmLite.Firebird.csproj">
       <Project>{317B64BA-D7A6-4A15-8719-821B38147C63}</Project>
-      <Name>ServiceStack.OrmLite.Firebird</Name>
+      <Name>NServiceKit.OrmLite.Firebird</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

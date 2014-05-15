@@ -3,26 +3,47 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Data;
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common;
 using System.Reflection;
 using System.IO;
-using ServiceStack.OrmLite;
+using NServiceKit.OrmLite;
 
 namespace AllDialectsTest
 {
+    /// <summary>A dialect.</summary>
 	public class Dialect
 	{
 		//private static Dictionary<string, Types> dialectDbTypes = new Dictionary<string, Types>();
 
+        /// <summary>Gets or sets the name.</summary>
+        /// <value>The name.</value>
 		public string Name { get; set; }
+
+        /// <summary>Gets or sets the path to assembly.</summary>
+        /// <value>The path to assembly.</value>
 		public string PathToAssembly { get; set; }
+
+        /// <summary>Gets or sets the name of the assembly.</summary>
+        /// <value>The name of the assembly.</value>
 		public string AssemblyName { get; set; }
+
+        /// <summary>Gets or sets the name of the class.</summary>
+        /// <value>The name of the class.</value>
 		public string ClassName { get; set; }
+
+        /// <summary>Gets or sets the name of the instance field.</summary>
+        /// <value>The name of the instance field.</value>
 		public string InstanceFieldName { get; set; }
+
+        /// <summary>Gets or sets the connection string.</summary>
+        /// <value>The connection string.</value>
 		public string ConnectionString { get; set; }
 
+        /// <summary>Gets the dialect provider.</summary>
+        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
+        /// <value>The dialect provider.</value>
 		public IOrmLiteDialectProvider DialectProvider
 		{
 			get

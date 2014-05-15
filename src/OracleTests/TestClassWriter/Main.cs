@@ -4,14 +4,17 @@ using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 using System.Collections.Generic;
 using System.Data;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Oracle;
-using ServiceStack.OrmLite.Oracle.DbSchema;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Oracle;
+using NServiceKit.OrmLite.Oracle.DbSchema;
 
 namespace TestClassWriter
 {
+    /// <summary>A main class.</summary>
 	class MainClass
 	{
+        /// <summary>Main entry-point for this application.</summary>
+        /// <param name="args">Array of command-line argument strings.</param>
 		public static void Main (string[] args)
 		{
 
@@ -48,9 +51,9 @@ namespace TestClassWriter
 					new string[]{
 						"System.dll",
 						"System.ComponentModel.DataAnnotations.dll",
-						Path.Combine( Directory.GetCurrentDirectory(), "ServiceStack.OrmLite.dll"),
-						Path.Combine( Directory.GetCurrentDirectory(), "ServiceStack.Common.dll"),
-						Path.Combine( Directory.GetCurrentDirectory(),"ServiceStack.Interfaces.dll")
+						Path.Combine( Directory.GetCurrentDirectory(), "NServiceKit.OrmLite.dll"),
+						Path.Combine( Directory.GetCurrentDirectory(), "NServiceKit.Common.dll"),
+						Path.Combine( Directory.GetCurrentDirectory(),"NServiceKit.Interfaces.dll")
 				});
 				cp.OutputAssembly= Path.Combine(cw.OutputDirectory, cw.SpaceName+".dll");
 				

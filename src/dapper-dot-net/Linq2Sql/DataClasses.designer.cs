@@ -20,51 +20,84 @@ namespace SqlMapper.Linq2Sql
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
+
+    /// <content>A data classes data context.</content>
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="tempdb")]
 	public partial class DataClassesDataContext : System.Data.Linq.DataContext
 	{
-		
+        /// <summary>The mapping source.</summary>
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
     #region Extensibility Method Definitions
+    /// <summary>Executes the created action.</summary>
     partial void OnCreated();
+
+    /// <summary>Inserts a post described by instance.</summary>
+    /// <param name="instance">The instance.</param>
     partial void InsertPost(Post instance);
+
+    /// <summary>Updates the post described by instance.</summary>
+    /// <param name="instance">The instance.</param>
     partial void UpdatePost(Post instance);
+
+    /// <summary>Deletes the post described by instance.</summary>
+    /// <param name="instance">The instance.</param>
     partial void DeletePost(Post instance);
     #endregion
-		
+
+        /// <summary>
+        /// Initializes a new instance of the SqlMapper.Linq2Sql.DataClassesDataContext class.
+        /// </summary>
 		public DataClassesDataContext() : 
 				base(global::SqlMapper.Properties.Settings.Default.tempdbConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
-		
+
+        /// <summary>
+        /// Initializes a new instance of the SqlMapper.Linq2Sql.DataClassesDataContext class.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
 		public DataClassesDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
-		
+
+        /// <summary>
+        /// Initializes a new instance of the SqlMapper.Linq2Sql.DataClassesDataContext class.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
 		public DataClassesDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
-		
+
+        /// <summary>
+        /// Initializes a new instance of the SqlMapper.Linq2Sql.DataClassesDataContext class.
+        /// </summary>
+        /// <param name="connection">   The connection.</param>
+        /// <param name="mappingSource">The mapping source.</param>
 		public DataClassesDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
-		
+
+        /// <summary>
+        /// Initializes a new instance of the SqlMapper.Linq2Sql.DataClassesDataContext class.
+        /// </summary>
+        /// <param name="connection">   The connection.</param>
+        /// <param name="mappingSource">The mapping source.</param>
 		public DataClassesDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
-		
+
+        /// <summary>Gets the posts.</summary>
+        /// <value>The posts.</value>
 		public System.Data.Linq.Table<Post> Posts
 		{
 			get
@@ -73,76 +106,164 @@ namespace SqlMapper.Linq2Sql
 			}
 		}
 	}
-	
+
+    /// <content>A post.</content>
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Posts")]
 	public partial class Post : INotifyPropertyChanging, INotifyPropertyChanged
 	{
-		
+        /// <summary>Static property changing event information.</summary>
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
+
+        /// <summary>The identifier.</summary>
 		private int _Id;
-		
+
+        /// <summary>The text.</summary>
 		private string _Text;
-		
+
+        /// <summary>The creation date.</summary>
 		private System.DateTime _CreationDate;
-		
+
+        /// <summary>The last change date.</summary>
 		private System.DateTime _LastChangeDate;
-		
+
+        /// <summary>The first counter.</summary>
 		private System.Nullable<int> _Counter1;
-		
+
+        /// <summary>The second counter.</summary>
 		private System.Nullable<int> _Counter2;
-		
+
+        /// <summary>The third counter.</summary>
 		private System.Nullable<int> _Counter3;
-		
+
+        /// <summary>The fourth counter.</summary>
 		private System.Nullable<int> _Counter4;
-		
+
+        /// <summary>The fifth counter.</summary>
 		private System.Nullable<int> _Counter5;
-		
+
+        /// <summary>The counter 6.</summary>
 		private System.Nullable<int> _Counter6;
-		
+
+        /// <summary>The counter 7.</summary>
 		private System.Nullable<int> _Counter7;
-		
+
+        /// <summary>The counter 8.</summary>
 		private System.Nullable<int> _Counter8;
-		
+
+        /// <summary>The counter 9.</summary>
 		private System.Nullable<int> _Counter9;
 		
     #region Extensibility Method Definitions
+    /// <summary>Executes the loaded action.</summary>
     partial void OnLoaded();
+
+    /// <summary>Executes the validate action.</summary>
+    /// <param name="action">The action.</param>
     partial void OnValidate(System.Data.Linq.ChangeAction action);
+
+    /// <summary>Executes the created action.</summary>
     partial void OnCreated();
+
+    /// <summary>Executes the identifier changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnIdChanging(int value);
+
+    /// <summary>Executes the identifier changed action.</summary>
     partial void OnIdChanged();
+
+    /// <summary>Executes the text changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnTextChanging(string value);
+
+    /// <summary>Executes the text changed action.</summary>
     partial void OnTextChanged();
+
+    /// <summary>Executes the creation date changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCreationDateChanging(System.DateTime value);
+
+    /// <summary>Executes the creation date changed action.</summary>
     partial void OnCreationDateChanged();
+
+    /// <summary>Executes the last change date changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnLastChangeDateChanging(System.DateTime value);
+
+    /// <summary>Executes the last change date changed action.</summary>
     partial void OnLastChangeDateChanged();
+
+    /// <summary>Executes the counter 1 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter1Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 1 changed action.</summary>
     partial void OnCounter1Changed();
+
+    /// <summary>Executes the counter 2 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter2Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 2 changed action.</summary>
     partial void OnCounter2Changed();
+
+    /// <summary>Executes the counter 3 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter3Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 3 changed action.</summary>
     partial void OnCounter3Changed();
+
+    /// <summary>Executes the counter 4 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter4Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 4 changed action.</summary>
     partial void OnCounter4Changed();
+
+    /// <summary>Executes the counter 5 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter5Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 5 changed action.</summary>
     partial void OnCounter5Changed();
+
+    /// <summary>Executes the counter 6 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter6Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 6 changed action.</summary>
     partial void OnCounter6Changed();
+
+    /// <summary>Executes the counter 7 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter7Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 7 changed action.</summary>
     partial void OnCounter7Changed();
+
+    /// <summary>Executes the counter 8 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter8Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 8 changed action.</summary>
     partial void OnCounter8Changed();
+
+    /// <summary>Executes the counter 9 changing action.</summary>
+    /// <param name="value">The value.</param>
     partial void OnCounter9Changing(System.Nullable<int> value);
+
+    /// <summary>Executes the counter 9 changed action.</summary>
     partial void OnCounter9Changed();
     #endregion
-		
+
+        /// <summary>Initializes a new instance of the SqlMapper.Linq2Sql.Post class.</summary>
 		public Post()
 		{
 			OnCreated();
 		}
-		
+
+        /// <summary>Gets or sets the identifier.</summary>
+        /// <value>The identifier.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
@@ -162,7 +283,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the text.</summary>
+        /// <value>The text.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
 		public string Text
 		{
@@ -182,7 +305,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the creation date.</summary>
+        /// <value>The creation date.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreationDate", DbType="DateTime NOT NULL")]
 		public System.DateTime CreationDate
 		{
@@ -202,7 +327,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the last change date.</summary>
+        /// <value>The last change date.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastChangeDate", DbType="DateTime NOT NULL")]
 		public System.DateTime LastChangeDate
 		{
@@ -222,7 +349,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 1.</summary>
+        /// <value>The counter 1.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter1", DbType="Int")]
 		public System.Nullable<int> Counter1
 		{
@@ -242,7 +371,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 2.</summary>
+        /// <value>The counter 2.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter2", DbType="Int")]
 		public System.Nullable<int> Counter2
 		{
@@ -262,7 +393,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 3.</summary>
+        /// <value>The counter 3.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter3", DbType="Int")]
 		public System.Nullable<int> Counter3
 		{
@@ -282,7 +415,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 4.</summary>
+        /// <value>The counter 4.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter4", DbType="Int")]
 		public System.Nullable<int> Counter4
 		{
@@ -302,7 +437,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 5.</summary>
+        /// <value>The counter 5.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter5", DbType="Int")]
 		public System.Nullable<int> Counter5
 		{
@@ -322,7 +459,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 6.</summary>
+        /// <value>The counter 6.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter6", DbType="Int")]
 		public System.Nullable<int> Counter6
 		{
@@ -342,7 +481,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 7.</summary>
+        /// <value>The counter 7.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter7", DbType="Int")]
 		public System.Nullable<int> Counter7
 		{
@@ -362,7 +503,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 8.</summary>
+        /// <value>The counter 8.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter8", DbType="Int")]
 		public System.Nullable<int> Counter8
 		{
@@ -382,7 +525,9 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Gets or sets the counter 9.</summary>
+        /// <value>The counter 9.</value>
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Counter9", DbType="Int")]
 		public System.Nullable<int> Counter9
 		{
@@ -402,11 +547,14 @@ namespace SqlMapper.Linq2Sql
 				}
 			}
 		}
-		
+
+        /// <summary>Occurs when a property value is changing.</summary>
 		public event PropertyChangingEventHandler PropertyChanging;
-		
+
+        /// <summary>Occurs when a property value changes.</summary>
 		public event PropertyChangedEventHandler PropertyChanged;
-		
+
+        /// <summary>Sends the property changing.</summary>
 		protected virtual void SendPropertyChanging()
 		{
 			if ((this.PropertyChanging != null))
@@ -414,7 +562,9 @@ namespace SqlMapper.Linq2Sql
 				this.PropertyChanging(this, emptyChangingEventArgs);
 			}
 		}
-		
+
+        /// <summary>Sends a property changed.</summary>
+        /// <param name="propertyName">Name of the property.</param>
 		protected virtual void SendPropertyChanged(String propertyName)
 		{
 			if ((this.PropertyChanged != null))

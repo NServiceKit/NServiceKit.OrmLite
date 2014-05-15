@@ -1,4 +1,4 @@
-﻿#region Using directives
+#region Using directives
 
 using System;
 using System.Reflection;
@@ -22,4 +22,4 @@ using System.Runtime.InteropServices;
 // If you need to expose a type to COM, use [ComVisible(true)] on that type.
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("3.9.60.0")]

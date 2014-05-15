@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SqlMapper.Linq2Sql
 {
+    /// <summary>A post.</summary>
     public partial class Post
     {
         /*

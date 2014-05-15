@@ -4,26 +4,29 @@ using System.Linq.Expressions;
 using System.Data;
 using System.Collections.Generic;
 
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common;
 
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Oracle;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Oracle;
 
 using Database.Records;
 
 namespace TestLiteOracle04
 {
+    /// <summary>A main class.</summary>
 	class MainClass
 	{
+        /// <summary>Main entry-point for this application.</summary>
+        /// <param name="args">Array of command-line argument strings.</param>
 		public static void Main (string[] args)
 		{
 			Console.WriteLine ("Hello World!");
 
             OrmLiteConfig.DialectProvider = new OracleOrmLiteDialectProvider();
 			
-			ServiceStack.OrmLite.SqlExpressionVisitor<Company> sql=
+			NServiceKit.OrmLite.SqlExpressionVisitor<Company> sql=
                 new OracleSqlExpressionVisitor<Company>();
 			
 			List<Object> names = new List<Object>();

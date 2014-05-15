@@ -94,23 +94,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.iOS.csproj">
+    <ProjectReference Include="..\..\NServiceKit.OrmLite.Sqlite\NServiceKit.OrmLite.Sqlite.iOS.csproj">
       <Project>{E6EA93E2-37BC-477F-8B87-BC30C3BBDB85}</Project>
-      <Name>ServiceStack.OrmLite.Sqlite.iOS</Name>
+      <Name>NServiceKit.OrmLite.Sqlite.iOS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ServiceStack.OrmLite\ServiceStack.OrmLite.iOS.csproj">
+    <ProjectReference Include="..\..\NServiceKit.OrmLite\NServiceKit.OrmLite.iOS.csproj">
       <Project>{7E3FEA8A-C770-4D50-8AD5-F56FCF0B7E07}</Project>
-      <Name>ServiceStack.OrmLite.iOS</Name>
+      <Name>NServiceKit.OrmLite.iOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Common.MonoTouch">
-      <HintPath>..\..\..\lib\ServiceStack.Common.MonoTouch.dll</HintPath>
+    <Reference Include="NServiceKit.Common.MonoTouch">
+      <HintPath>..\..\..\lib\NServiceKit.Common.MonoTouch.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces.MonoTouch">
-      <HintPath>..\..\..\lib\ServiceStack.Interfaces.MonoTouch.dll</HintPath>
+    <Reference Include="NServiceKit.Interfaces.MonoTouch">
+      <HintPath>..\..\..\lib\NServiceKit.Interfaces.MonoTouch.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

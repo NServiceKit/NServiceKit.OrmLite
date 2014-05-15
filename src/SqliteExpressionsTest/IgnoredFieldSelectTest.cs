@@ -2,54 +2,83 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.OrmLite;
+using NServiceKit.OrmLite;
 using System.IO;
 using System.Data;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common.Utils;
-using ServiceStack.OrmLite.Sqlite;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common.Utils;
+using NServiceKit.OrmLite.Sqlite;
 
 namespace SqliteExpressionsTest
 {
+    /// <summary>A user 2.</summary>
     public class User_2
     {
+        /// <summary>Gets or sets the identifier.</summary>
+        /// <value>The identifier.</value>
         public long Id { get; set; }
 
+        /// <summary>Gets or sets the name.</summary>
+        /// <value>The name.</value>
         [Index]
         public string Name { get; set; }
 
+        /// <summary>Gets or sets the created date.</summary>
+        /// <value>The created date.</value>
         public DateTime CreatedDate { get; set; }
 
+        /// <summary>Gets or sets the identifier of the user data.</summary>
+        /// <value>The identifier of the user data.</value>
         public long? UserDataId { get; set; }
 
+        /// <summary>Gets or sets the identifier of the user service.</summary>
+        /// <value>The identifier of the user service.</value>
         public long UserServiceId { get; set; }
 
+        /// <summary>Gets or sets the user data value.</summary>
+        /// <value>The user data value.</value>
         [Ignore]
         [Alias("DataValue")]
         public string UserDataValue { get; set; }
 
+        /// <summary>Gets or sets the name of the user service.</summary>
+        /// <value>The name of the user service.</value>
         [Ignore]
         [Alias("ServiceName")]
         public string UserServiceName { get; set; }
     }
 
+    /// <summary>A user data 2.</summary>
     [Alias("UserData_2")]
     public class UserData_2
     {
+        /// <summary>Gets or sets the identifier.</summary>
+        /// <value>The identifier.</value>
         public long Id { get; set; }
+
+        /// <summary>Gets or sets the data value.</summary>
+        /// <value>The data value.</value>
         public string DataValue { get; set; }
     }
 
+    /// <summary>A user service 2.</summary>
     [Alias("UserService_2")]
     public class UserService_2
     {
+        /// <summary>Gets or sets the identifier.</summary>
+        /// <value>The identifier.</value>
         public long Id { get; set; }
+
+        /// <summary>Gets or sets the name of the service.</summary>
+        /// <value>The name of the service.</value>
         public string ServiceName { get; set; }
     }
 
-
+    /// <summary>An ignored field select test.</summary>
     public class IgnoredFieldSelectTest
     {
+        /// <summary>Gets file connection string.</summary>
+        /// <returns>The file connection string.</returns>
         private static string GetFileConnectionString()
         {
             var connectionString = "~/db.sqlite".MapAbsolutePath();
@@ -59,7 +88,7 @@ namespace SqliteExpressionsTest
             return connectionString;
         }
 
-
+        /// <summary>Tests this object.</summary>
         public static void Test()
         {
             OrmLiteConfig.DialectProvider = SqliteOrmLiteDialectProvider.Instance;

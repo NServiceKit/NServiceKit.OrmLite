@@ -1,19 +1,19 @@
 SET NUGET=..\src\.nuget\nuget
-%NUGET% push ServiceStack.OrmLite.Firebird.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.Firebird.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.MySql.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.MySql.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.Oracle.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.Oracle.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.PostgreSQL.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.PostgreSQL.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.Sqlite.Mono.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.Sqlite.Mono.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.Sqlite32.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.Sqlite32.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.Sqlite64.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.Sqlite64.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.SqlServer.3.9.60.nupkg
-%NUGET% push ServiceStack.OrmLite.SqlServer.3.9.60.symbols.nupkg
-%NUGET% push ServiceStack.OrmLite.T4.3.9.59.nupkg
+%NUGET% push NServiceKit.OrmLite.Firebird.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.Firebird.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.MySql.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.MySql.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.Oracle.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.Oracle.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.PostgreSQL.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.PostgreSQL.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.Sqlite.Mono.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.Sqlite.Mono.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.Sqlite32.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.Sqlite32.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.Sqlite64.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.Sqlite64.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.SqlServer.3.9.60.nupkg
+%NUGET% push NServiceKit.OrmLite.SqlServer.3.9.60.symbols.nupkg
+%NUGET% push NServiceKit.OrmLite.T4.3.9.59.nupkg
 

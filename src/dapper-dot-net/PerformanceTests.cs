@@ -4,8 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.SqlServer;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.SqlServer;
 using SqlMapper.Linq2Sql;
 using System.Data.Linq;
 using System.Diagnostics;
@@ -13,28 +13,47 @@ using Massive;
 
 namespace SqlMapper
 {
+    /// <summary>A performance tests.</summary>
     class PerformanceTests
     {
-
+        /// <summary>A test.</summary>
         class Test
         {
+            /// <summary>Creates a new Test.</summary>
+            /// <param name="iteration">The iteration.</param>
+            /// <param name="name">     The name.</param>
+            /// <returns>A Test.</returns>
             public static Test Create(Action<int> iteration, string name)
             {
                 return new Test {Iteration = iteration, Name = name };
             }
 
+            /// <summary>Gets or sets the iteration.</summary>
+            /// <value>The iteration.</value>
             public Action<int> Iteration { get; set; }
+
+            /// <summary>Gets or sets the name.</summary>
+            /// <value>The name.</value>
             public string Name { get; set; }
+
+            /// <summary>Gets or sets the watch.</summary>
+            /// <value>The watch.</value>
             public Stopwatch Watch { get; set; }
         }
 
+        /// <summary>A tests.</summary>
         class Tests : List<Test>
         {
+            /// <summary>Adds iteration.</summary>
+            /// <param name="iteration">The iteration.</param>
+            /// <param name="name">     The name.</param>
             public void Add(Action<int> iteration, string name)
             {
                 Add(Test.Create(iteration, name));
             }
 
+            /// <summary>Runs.</summary>
+            /// <param name="iterations">The iterations.</param>
             public void Run(int iterations)
             { 
                 // warmup 
@@ -63,11 +82,15 @@ namespace SqlMapper
             }
         }
 
+        /// <summary>Gets l 2 s context.</summary>
+        /// <returns>The l 2 s context.</returns>
         static DataClassesDataContext GetL2SContext()
         {
             return new DataClassesDataContext(Program.GetOpenConnection());
         }
 
+        /// <summary>Runs.</summary>
+        /// <param name="iterations">The iterations.</param>
         public void Run(int iterations)
         {
             var tests = new Tests();
@@ -102,7 +125,7 @@ namespace SqlMapper
             tests.Add(id => massiveModel.Query("select * from Posts where Id = @0", massiveConnection, id).ToList(), "Dynamic Massive ORM Query");
         	
 
-			//ServiceStack.OrmLite Provider:
+			//NServiceKit.OrmLite Provider:
 			OrmLiteConfig.DialectProvider = SqlServerOrmLiteDialectProvider.Instance; //Using SQL Server
 			IDbConnection ormLiteConn = Program.GetOpenConnection();
 			tests.Add(id => ormLiteConn.Select<Post>("select * from Posts where Id = {0}", id), "OrmLite Query");
@@ -145,8 +168,13 @@ namespace SqlMapper
         }
     }
 
+    /// <summary>A SQL data reader helper.</summary>
     static class SqlDataReaderHelper
     {
+        /// <summary>A SqlDataReader extension method that gets nullable string.</summary>
+        /// <param name="reader">The reader to act on.</param>
+        /// <param name="index"> Zero-based index of the.</param>
+        /// <returns>The nullable string.</returns>
         public static string GetNullableString(this SqlDataReader reader, int index) 
         {
             object tmp = reader.GetValue(index);
@@ -157,6 +185,11 @@ namespace SqlMapper
             return null;
         }
 
+        /// <summary>A SqlDataReader extension method that gets nullable value.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="reader">The reader to act on.</param>
+        /// <param name="index"> Zero-based index of the.</param>
+        /// <returns>The nullable value.</returns>
         public static Nullable<T> GetNullableValue<T>(this SqlDataReader reader, int index) where T : struct
         {
             object tmp = reader.GetValue(index);

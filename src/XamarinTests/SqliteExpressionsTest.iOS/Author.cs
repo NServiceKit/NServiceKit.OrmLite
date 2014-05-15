@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.IO;
 using System.Linq;
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Sqlite;
 
 namespace SqliteExpressionsTest
 {

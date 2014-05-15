@@ -4,75 +4,110 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Data;
 
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common;
 using System.Reflection;
 
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Firebird;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Firebird;
 
 
 namespace TestLiteFirebird00
 {
-	
+    /// <summary>An author.</summary>
 	public class Author{
-		
+
+        /// <summary>Initializes a new instance of the TestLiteFirebird00.Author class.</summary>
 		public Author(){
 		}
 		
 		[AutoIncrement]
 		//[Sequence("Author_Id_GEN")]
+
+        /// <summary>Gets or sets the identifier.</summary>
+        /// <value>The identifier.</value>
 		public Int32 Id { get; set;}
-		
+
+        /// <summary>Gets or sets the name.</summary>
+        /// <value>The name.</value>
 		[Required]
 		[Index(Unique = true)]
 		[StringLength(40)]
 		public string Name { get; set;}
-		
+
+        /// <summary>Gets or sets the Date/Time of the birthday.</summary>
+        /// <value>The birthday.</value>
 		[Required]
 		public DateTime Birthday { get; set;}
-		
+
+        /// <summary>Gets or sets the Date/Time of the last activity.</summary>
+        /// <value>The last activity.</value>
 		public DateTime ? LastActivity  { get; set;}
-		
+
+        /// <summary>Gets or sets the earnings.</summary>
+        /// <value>The earnings.</value>
 		public Decimal? Earnings { get; set;}  // Precision=18, scale=12 default values
 		
 		//[Alias("Active")] // Active Firebird Reserved  ?
+
+        /// <summary>Gets or sets a value indicating whether the active.</summary>
+        /// <value>true if active, false if not.</value>
 		public bool Active { get; set; } 
-		
+
+        /// <summary>Gets or sets the city.</summary>
+        /// <value>The city.</value>
 		[StringLength(80)]
 		public string City { get; set;}
-		
+
+        /// <summary>Gets or sets the comments.</summary>
+        /// <value>The comments.</value>
 		[StringLength(80)]
 		public string Comments { get; set;}
-		
+
+        /// <summary>Gets or sets the rate.</summary>
+        /// <value>The rate.</value>
 		public Int16 Rate{ get; set;}
 		
 		
 	}
-	
+
+    /// <summary>A book.</summary>
 	public class Book{
-		
+
+        /// <summary>Initializes a new instance of the TestLiteFirebird00.Book class.</summary>
 		public Book(){
 		}
 		
 		[AutoIncrement]
 		//[Sequence("Book_Id_GEN")]
+
+        /// <summary>Gets or sets the identifier.</summary>
+        /// <value>The identifier.</value>
 		public Int32 Id { get; set;}
-		
+
+        /// <summary>Gets or sets the identifier author.</summary>
+        /// <value>The identifier author.</value>
 		[References(typeof(Author))]
 		public Int32 IdAuthor {get; set;}
-		
+
+        /// <summary>Gets or sets the title.</summary>
+        /// <value>The title.</value>
 		[StringLength(80)]
 		public string Title {get; set;}
+
+        /// <summary>Gets or sets the price.</summary>
+        /// <value>The price.</value>
 		[DecimalLength(15,2)]
 		public Decimal Price { get; set;}  // Precision= 15, Scale=2
 		
 	}
-	
-	
+
+    /// <summary>A main class.</summary>
 	class MainClass
 	{
+        /// <summary>Main entry-point for this application.</summary>
+        /// <param name="args">Array of command-line argument strings.</param>
 		public static void Main (string[] args)
 		{
 			OrmLiteConfig.DialectProvider = new FirebirdOrmLiteDialectProvider();
@@ -93,7 +128,7 @@ namespace TestLiteFirebird00
 					Birthday= DateTime.Today.AddYears(20),
 					Active=true,
 					Earnings= 99.9m,
-					Comments="ServiceStack.Net ...",
+					Comments="NServiceKit.Net ...",
 					City="London",
 					Rate=10
 				});

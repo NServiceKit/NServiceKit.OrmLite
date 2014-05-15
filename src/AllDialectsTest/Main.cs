@@ -3,18 +3,24 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Data;
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common;
-using ServiceStack.OrmLite;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common;
+using NServiceKit.OrmLite;
 
 namespace AllDialectsTest
 {
+    /// <summary>A main class.</summary>
 	class MainClass
 	{
+        /// <summary>The dialects.</summary>
 		private static List<Dialect> dialects;
+
+        /// <summary>The authors.</summary>
 		private static List<Author> authors;
 
+        /// <summary>Main entry-point for this application.</summary>
+        /// <param name="args">Array of command-line argument strings.</param>
 		public static void Main(string[] args)
 		{
 
@@ -55,6 +61,7 @@ namespace AllDialectsTest
 
 		}
 
+        /// <summary>Paints the menu.</summary>
 		private static void PaintMenu()
 		{
 			Console.Clear();
@@ -66,14 +73,16 @@ namespace AllDialectsTest
 			Console.WriteLine("q quit");
 		}
 
+        /// <summary>Builds dialect list.</summary>
+        /// <returns>A List&lt;Dialect&gt;</returns>
 		private static List<Dialect> BuildDialectList()
 		{
 			List<Dialect> l = new List<Dialect>();
 			Dialect d = new Dialect() {
 				Name = "Sqlite",
-				PathToAssembly = "../../../ServiceStack.OrmLite.Sqlite/bin/Debug",
-				AssemblyName = "ServiceStack.OrmLite.Sqlite.dll",
-				ClassName = "ServiceStack.OrmLite.Sqlite.SqliteOrmLiteDialectProvider",
+				PathToAssembly = "../../../NServiceKit.OrmLite.Sqlite/bin/Debug",
+				AssemblyName = "NServiceKit.OrmLite.Sqlite.dll",
+				ClassName = "NServiceKit.OrmLite.Sqlite.SqliteOrmLiteDialectProvider",
 				InstanceFieldName = "Instance",
 				ConnectionString = "~/db.sqlite".MapAbsolutePath()
 			};
@@ -81,9 +90,9 @@ namespace AllDialectsTest
 
 			d = new Dialect() {
 				Name = "SqlServer",
-				PathToAssembly = "../../../ServiceStack.OrmLite.SqlServer/bin/Debug",
-				AssemblyName = "ServiceStack.OrmLite.SqlServer.dll",
-				ClassName = "ServiceStack.OrmLite.SqlServer.SqlServerOrmLiteDialectProvider",
+				PathToAssembly = "../../../NServiceKit.OrmLite.SqlServer/bin/Debug",
+				AssemblyName = "NServiceKit.OrmLite.SqlServer.dll",
+				ClassName = "NServiceKit.OrmLite.SqlServer.SqlServerOrmLiteDialectProvider",
 				InstanceFieldName = "Instance",
                 ConnectionString = "~/test.mdf".MapAbsolutePath()
 			};
@@ -91,9 +100,9 @@ namespace AllDialectsTest
 
 			d = new Dialect() {
 				Name = "MySql",
-				PathToAssembly = "../../../ServiceStack.OrmLite.MySql/bin/Debug",
-				AssemblyName = "ServiceStack.OrmLite.MySql.dll",
-				ClassName = "ServiceStack.OrmLite.MySql.MySqlDialectProvider",
+				PathToAssembly = "../../../NServiceKit.OrmLite.MySql/bin/Debug",
+				AssemblyName = "NServiceKit.OrmLite.MySql.dll",
+				ClassName = "NServiceKit.OrmLite.MySql.MySqlDialectProvider",
 				InstanceFieldName = "Instance",
 				ConnectionString = "Server = 127.0.0.1; Database = ormlite; Uid = root; Pwd = password"
 			};
@@ -101,9 +110,9 @@ namespace AllDialectsTest
 
 			d = new Dialect() {
 				Name = "PostgreSQL",
-				PathToAssembly = "../../../ServiceStack.OrmLite.PostgreSQL/bin/Debug",
-				AssemblyName = "ServiceStack.OrmLite.PostgreSQL.dll",
-				ClassName = "ServiceStack.OrmLite.PostgreSQL.PostgreSQLDialectProvider",
+				PathToAssembly = "../../../NServiceKit.OrmLite.PostgreSQL/bin/Debug",
+				AssemblyName = "NServiceKit.OrmLite.PostgreSQL.dll",
+				ClassName = "NServiceKit.OrmLite.PostgreSQL.PostgreSQLDialectProvider",
 				InstanceFieldName = "Instance",
 				ConnectionString = "Server=localhost;Port=5432;User Id=postgres; Password=postgres; Database=ormlite"
 			};
@@ -111,9 +120,9 @@ namespace AllDialectsTest
 
 			d = new Dialect() {
 				Name = "FirebirdSql",
-				PathToAssembly = "../../../ServiceStack.OrmLite.Firebird/bin/Debug",
-				AssemblyName = "ServiceStack.OrmLite.Firebird.dll",
-				ClassName = "ServiceStack.OrmLite.Firebird.FirebirdOrmLiteDialectProvider",
+				PathToAssembly = "../../../NServiceKit.OrmLite.Firebird/bin/Debug",
+				AssemblyName = "NServiceKit.OrmLite.Firebird.dll",
+				ClassName = "NServiceKit.OrmLite.Firebird.FirebirdOrmLiteDialectProvider",
 				InstanceFieldName = "Instance",
 				ConnectionString = "User=SYSDBA;Password=masterkey;Database=employee.fdb;DataSource=localhost;Dialect=3;charset=ISO8859_1;"
 			};
@@ -121,11 +130,11 @@ namespace AllDialectsTest
 
             d = new Dialect() {
                 Name = "Oracle",
-                PathToAssembly = "../../../ServiceStack.OrmLite.Oracle/bin/Debug",
-                AssemblyName = "ServiceStack.OrmLite.Oracle.dll",
-                ClassName = "ServiceStack.OrmLite.Oracle.OracleOrmLiteDialectProvider",
+                PathToAssembly = "../../../NServiceKit.OrmLite.Oracle/bin/Debug",
+                AssemblyName = "NServiceKit.OrmLite.Oracle.dll",
+                ClassName = "NServiceKit.OrmLite.Oracle.OracleOrmLiteDialectProvider",
                 InstanceFieldName = "Instance",
-                ConnectionString = "Data Source=localhost:1521/XE;User ID=servicestack_test;Password=servicestack_test;Unicode=True"
+                ConnectionString = "Data Source=localhost:1521/XE;User ID=NServiceKit_test;Password=NServiceKit_test;Unicode=True"
             };
             l.Add(d);
 
@@ -133,6 +142,8 @@ namespace AllDialectsTest
 
 		}
 
+        /// <summary>Builds author list.</summary>
+        /// <returns>A List&lt;Author&gt;</returns>
 		private static List<Author> BuildAuthorList()
 		{
 
@@ -154,6 +165,8 @@ namespace AllDialectsTest
 			return a;
 		}
 
+        /// <summary>Tests dialect.</summary>
+        /// <param name="dialect">The dialect.</param>
 		private static void TestDialect(Dialect dialect)
 		{
 			Console.Clear();

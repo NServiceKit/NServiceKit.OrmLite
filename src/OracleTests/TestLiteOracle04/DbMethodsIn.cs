@@ -2,10 +2,16 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-namespace ServiceStack.OrmLite
+namespace NServiceKit.OrmLite
 {
+    /// <summary>A database methods.</summary>
 	public static class DbMethods
 	{
+        /// <summary>A T extension method that insert.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="value">The value to act on.</param>
+        /// <param name="list"> The list.</param>
+        /// <returns>true if it succeeds, false if it fails.</returns>
 		public static bool In<T>(this T value, IList<Object> list) {
 			foreach( Object obj in list){
 				if(obj==null || value==null ) continue;
@@ -13,27 +19,56 @@ namespace ServiceStack.OrmLite
 			}
 			return false;
 		}
-		
+
+        /// <summary>A T extension method that descriptions the given value.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="value">The value to act on.</param>
+        /// <returns>A string.</returns>
 		public static string Desc<T>(this T value) {
 			return  value==null? "": value.ToString() + " DESC";
 		}
-		
+
+        /// <summary>A T extension method that as.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="value">  The value to act on.</param>
+        /// <param name="asValue">as value.</param>
+        /// <returns>A string.</returns>
 		public static string As<T>(this T value, string asValue) {
 			return  value==null? "": string.Format("{0} AS {1}", value.ToString(), asValue);
 		}
-				
+
+        /// <summary>A T extension method that sums the given value.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="value">The value to act on.</param>
+        /// <returns>A T.</returns>
 		public static T Sum<T>(this T value)  {
 			return value;
 		}
-		
+
+        /// <summary>A T extension method that counts the given value.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="value">The value to act on.</param>
+        /// <returns>A T.</returns>
 		public static T Count<T>(this T value)  {
 			return value;
 		}
-		
+
+        /// <summary>
+        /// A T extension method that determines the minimum of the given parameters.
+        /// </summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="value">The value to act on.</param>
+        /// <returns>The minimum value.</returns>
 		public static T Min<T>(this T value)  {
 			return value;
 		}
-		
+
+        /// <summary>
+        /// A T extension method that determines the average of the given parameters.
+        /// </summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="value">The value to act on.</param>
+        /// <returns>The average value.</returns>
 		public static T Avg<T>(this T value)  {
 			return value;
 		}

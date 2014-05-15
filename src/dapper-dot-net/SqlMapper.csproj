@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="NServiceKit.Interfaces">
+      <HintPath>..\..\lib\NServiceKit.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -96,13 +96,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack.OrmLite.SqlServer\ServiceStack.OrmLite.SqlServer.csproj">
+    <ProjectReference Include="..\NServiceKit.OrmLite.SqlServer\NServiceKit.OrmLite.SqlServer.csproj">
       <Project>{1887DC99-9139-43E3-A7AA-6D74714B3A5D}</Project>
-      <Name>ServiceStack.OrmLite.SqlServer</Name>
+      <Name>NServiceKit.OrmLite.SqlServer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
+    <ProjectReference Include="..\NServiceKit.OrmLite\NServiceKit.OrmLite.csproj">
       <Project>{96179AC6-F6F1-40C3-9FDD-4F6582F54C5C}</Project>
-      <Name>ServiceStack.OrmLite</Name>
+      <Name>NServiceKit.OrmLite</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

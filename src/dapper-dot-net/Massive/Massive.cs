@@ -12,11 +12,12 @@ using System.Text.RegularExpressions;
 
 namespace Massive
 {
+    /// <summary>An object extensions.</summary>
     public static class ObjectExtensions
     {
-        /// <summary>
-        /// Extension method for adding in a bunch of parameters
-        /// </summary>
+        /// <summary>Extension method for adding in a bunch of parameters.</summary>
+        /// <param name="cmd"> The cmd to act on.</param>
+        /// <param name="args">A variable-length parameters list containing arguments.</param>
         public static void AddParams(this DbCommand cmd, params object[] args)
         {
             foreach (var item in args)
@@ -24,9 +25,10 @@ namespace Massive
                 AddParam(cmd, item);
             }
         }
-        /// <summary>
-        /// Extension for adding single parameter
-        /// </summary>
+
+        /// <summary>Extension for adding single parameter.</summary>
+        /// <param name="cmd"> The cmd to act on.</param>
+        /// <param name="item">The item.</param>
         public static void AddParam(this DbCommand cmd, object item)
         {
             var p = cmd.CreateParameter();
@@ -58,9 +60,10 @@ namespace Massive
             }
             cmd.Parameters.Add(p);
         }
-        /// <summary>
-        /// Turns an IDataReader to a Dynamic list of things
-        /// </summary>
+
+        /// <summary>Turns an IDataReader to a Dynamic list of things.</summary>
+        /// <param name="rdr">The rdr to act on.</param>
+        /// <returns>rdr as a List&lt;dynamic&gt;</returns>
         public static List<dynamic> ToExpandoList(this IDataReader rdr)
         {
             var result = new List<dynamic>();
@@ -70,6 +73,10 @@ namespace Massive
             }
             return result;
         }
+
+        /// <summary>An IDataReader extension method that record to expando.</summary>
+        /// <param name="rdr">The rdr to act on.</param>
+        /// <returns>A dynamic.</returns>
         public static dynamic RecordToExpando(this IDataReader rdr)
         {
             dynamic e = new ExpandoObject();
@@ -78,9 +85,10 @@ namespace Massive
                 d.Add(rdr.GetName(i), rdr[i]);
             return e;
         }
-        /// <summary>
-        /// Turns the object into an ExpandoObject
-        /// </summary>
+
+        /// <summary>Turns the object into an ExpandoObject.</summary>
+        /// <param name="o">The o to act on.</param>
+        /// <returns>o as a dynamic.</returns>
         public static dynamic ToExpando(this object o)
         {
             var result = new ExpandoObject();
@@ -101,22 +109,29 @@ namespace Massive
             }
             return result;
         }
-        /// <summary>
-        /// Turns the object into a Dictionary
-        /// </summary>
+
+        /// <summary>Turns the object into a Dictionary.</summary>
+        /// <param name="thingy">The thingy to act on.</param>
+        /// <returns>thingy as an IDictionary&lt;string,object&gt;</returns>
         public static IDictionary<string, object> ToDictionary(this object thingy)
         {
             return (IDictionary<string, object>)thingy.ToExpando();
         }
     }
-    /// <summary>
-    /// A class that wraps your database table in Dynamic Funtime
-    /// </summary>
+
+    /// <summary>A class that wraps your database table in Dynamic Funtime.</summary>
     public class DynamicModel
     {
+        /// <summary>The factory.</summary>
         DbProviderFactory _factory;
+
+        /// <summary>The connection string.</summary>
         string _connectionString;
 
+        /// <summary>Initializes a new instance of the Massive.DynamicModel class.</summary>
+        /// <param name="connectionStringName">Name of the connection string.</param>
+        /// <param name="tableName">           The name of the table.</param>
+        /// <param name="primaryKeyField">     The primary key field.</param>
         public DynamicModel(string connectionStringName = "", string tableName = "", string primaryKeyField = "")
         {
             _factory = DbProviderFactories.GetFactory("System.Data.SqlClient");
@@ -139,9 +154,13 @@ namespace Massive
             _connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
              */
         }
-        /// <summary>
-        /// Enumerates the reader yielding the result - thanks to Jeroen Haegebaert
-        /// </summary>
+
+        /// <summary>Enumerates the reader yielding the result - thanks to Jeroen Haegebaert.</summary>
+        /// <param name="sql"> The SQL.</param>
+        /// <param name="args">A variable-length parameters list containing arguments.</param>
+        /// <returns>
+        /// An enumerator that allows foreach to be used to process query in this collection.
+        /// </returns>
         public virtual IEnumerable<dynamic> Query(string sql, params object[] args)
         {
             using (var conn = OpenConnection())
@@ -153,6 +172,14 @@ namespace Massive
                 }
             }
         }
+
+        /// <summary>Enumerates the reader yielding the result - thanks to Jeroen Haegebaert.</summary>
+        /// <param name="sql">       The SQL.</param>
+        /// <param name="connection">The connection.</param>
+        /// <param name="args">      A variable-length parameters list containing arguments.</param>
+        /// <returns>
+        /// An enumerator that allows foreach to be used to process query in this collection.
+        /// </returns>
         public virtual IEnumerable<dynamic> Query(string sql, DbConnection connection, params object[] args)
         {
             using (var rdr = CreateCommand(sql, connection, args).ExecuteReader())
@@ -164,9 +191,11 @@ namespace Massive
             }
 
         }
-        /// <summary>
-        /// Returns a single result
-        /// </summary>
+
+        /// <summary>Returns a single result.</summary>
+        /// <param name="sql"> The SQL.</param>
+        /// <param name="args">A variable-length parameters list containing arguments.</param>
+        /// <returns>An object.</returns>
         public virtual object Scalar(string sql, params object[] args)
         {
             object result = null;
@@ -176,9 +205,12 @@ namespace Massive
             }
             return result;
         }
-        /// <summary>
-        /// Creates a DBCommand that you can use for loving your database.
-        /// </summary>
+
+        /// <summary>Creates a DBCommand that you can use for loving your database.</summary>
+        /// <param name="sql"> The SQL.</param>
+        /// <param name="conn">The connection.</param>
+        /// <param name="args">A variable-length parameters list containing arguments.</param>
+        /// <returns>The new command.</returns>
         DbCommand CreateCommand(string sql, DbConnection conn, params object[] args)
         {
             var result = _factory.CreateCommand();
@@ -188,9 +220,9 @@ namespace Massive
                 result.AddParams(args);
             return result;
         }
-        /// <summary>
-        /// Returns and OpenConnection
-        /// </summary>
+
+        /// <summary>Returns and OpenConnection.</summary>
+        /// <returns>A DbConnection.</returns>
         public virtual DbConnection OpenConnection()
         {
             var result = _factory.CreateConnection();
@@ -198,11 +230,14 @@ namespace Massive
             result.Open();
             return result;
         }
+
         /// <summary>
-        /// Builds a set of Insert and Update commands based on the passed-on objects.
-        /// These objects can be POCOs, Anonymous, NameValueCollections, or Expandos. Objects
-        /// With a PK property (whatever PrimaryKeyField is set to) will be created at UPDATEs
+        /// Builds a set of Insert and Update commands based on the passed-on objects. These objects can
+        /// be POCOs, Anonymous, NameValueCollections, or Expandos. Objects With a PK property (whatever
+        /// PrimaryKeyField is set to) will be created at UPDATEs.
         /// </summary>
+        /// <param name="things">The things to save.</param>
+        /// <returns>A List&lt;DbCommand&gt;</returns>
         public virtual List<DbCommand> BuildCommands(params object[] things)
         {
             var commands = new List<DbCommand>();
@@ -220,23 +255,32 @@ namespace Massive
 
             return commands;
         }
+
         /// <summary>
-        /// Executes a set of objects as Insert or Update commands based on their property settings, within a transaction.
-        /// These objects can be POCOs, Anonymous, NameValueCollections, or Expandos. Objects
-        /// With a PK property (whatever PrimaryKeyField is set to) will be created at UPDATEs
+        /// Executes a set of objects as Insert or Update commands based on their property settings,
+        /// within a transaction. These objects can be POCOs, Anonymous, NameValueCollections, or
+        /// Expandos. Objects With a PK property (whatever PrimaryKeyField is set to) will be created at
+        /// UPDATEs.
         /// </summary>
+        /// <param name="things">The things to save.</param>
+        /// <returns>An int.</returns>
         public virtual int Save(params object[] things)
         {
             var commands = BuildCommands(things);
             return Execute(commands);
         }
+
+        /// <summary>Executes a series of DBCommands in a transaction.</summary>
+        /// <param name="command">The command.</param>
+        /// <returns>An int.</returns>
         public virtual int Execute(DbCommand command)
         {
             return Execute(new DbCommand[] { command });
         }
-        /// <summary>
-        /// Executes a series of DBCommands in a transaction
-        /// </summary>
+
+        /// <summary>Executes a series of DBCommands in a transaction.</summary>
+        /// <param name="commands">The commands.</param>
+        /// <returns>An int.</returns>
         public virtual int Execute(IEnumerable<DbCommand> commands)
         {
             var result = 0;
@@ -255,29 +299,46 @@ namespace Massive
             }
             return result;
         }
+
+        /// <summary>Gets or sets the primary key field.</summary>
+        /// <value>The primary key field.</value>
         public virtual string PrimaryKeyField { get; set; }
+
         /// <summary>
-        /// Conventionally introspects the object passed in for a field that 
-        /// looks like a PK. If you've named your PrimaryKeyField, this becomes easy
+        /// Conventionally introspects the object passed in for a field that looks like a PK. If you've
+        /// named your PrimaryKeyField, this becomes easy.
         /// </summary>
+        /// <param name="o">The object to process.</param>
+        /// <returns>true if primary key, false if not.</returns>
         public virtual bool HasPrimaryKey(object o)
         {
             return o.ToDictionary().ContainsKey(PrimaryKeyField);
         }
+
         /// <summary>
-        /// If the object passed in has a property with the same name as your PrimaryKeyField
-        /// it is returned here.
+        /// If the object passed in has a property with the same name as your PrimaryKeyField it is
+        /// returned here.
         /// </summary>
+        /// <param name="o">The object to process.</param>
+        /// <returns>The primary key.</returns>
         public virtual object GetPrimaryKey(object o)
         {
             object result = null;
             o.ToDictionary().TryGetValue(PrimaryKeyField, out result);
             return result;
         }
+
+        /// <summary>Gets or sets the name of the table.</summary>
+        /// <value>The name of the table.</value>
         public virtual string TableName { get; set; }
+
         /// <summary>
-        /// Creates a command for use with transactions - internal stuff mostly, but here for you to play with
+        /// Creates a command for use with transactions - internal stuff mostly, but here for you to play
+        /// with.
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
+        /// <param name="o">The object to process.</param>
+        /// <returns>The new insert command.</returns>
         public virtual DbCommand CreateInsertCommand(object o)
         {
             DbCommand result = null;
@@ -305,9 +366,15 @@ namespace Massive
             else throw new InvalidOperationException("Can't parse this object to the database - there are no properties set");
             return result;
         }
+
         /// <summary>
-        /// Creates a command for use with transactions - internal stuff mostly, but here for you to play with
+        /// Creates a command for use with transactions - internal stuff mostly, but here for you to play
+        /// with.
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
+        /// <param name="o">  The object to process.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>The new update command.</returns>
         public virtual DbCommand CreateUpdateCommand(object o, object key)
         {
             var expando = o.ToExpando();
@@ -338,9 +405,12 @@ namespace Massive
             else throw new InvalidOperationException("No parsable object was sent in - could not divine any name/value pairs");
             return result;
         }
-        /// <summary>
-        /// Removes one or more records from the DB according to the passed-in WHERE
-        /// </summary>
+
+        /// <summary>Removes one or more records from the DB according to the passed-in WHERE.</summary>
+        /// <param name="where">The where.</param>
+        /// <param name="key">  The key.</param>
+        /// <param name="args"> A variable-length parameters list containing arguments.</param>
+        /// <returns>The new delete command.</returns>
         public virtual DbCommand CreateDeleteCommand(string where = "", object key = null, params object[] args)
         {
             var sql = string.Format("DELETE FROM {0} ", TableName);
@@ -355,10 +425,13 @@ namespace Massive
             }
             return CreateCommand(sql, null, args);
         }
+
         /// <summary>
-        /// Adds a record to the database. You can pass in an Anonymous object, an ExpandoObject,
-        /// A regular old POCO, or a NameValueColletion from a Request.Form or Request.QueryString
+        /// Adds a record to the database. You can pass in an Anonymous object, an ExpandoObject, A
+        /// regular old POCO, or a NameValueColletion from a Request.Form or Request.QueryString.
         /// </summary>
+        /// <param name="o">The object to process.</param>
+        /// <returns>An object.</returns>
         public virtual object Insert(object o)
         {
             dynamic result = 0;
@@ -372,25 +445,41 @@ namespace Massive
             }
             return result;
         }
+
         /// <summary>
-        /// Updates a record in the database. You can pass in an Anonymous object, an ExpandoObject,
-        /// A regular old POCO, or a NameValueCollection from a Request.Form or Request.QueryString
+        /// Updates a record in the database. You can pass in an Anonymous object, an ExpandoObject, A
+        /// regular old POCO, or a NameValueCollection from a Request.Form or Request.QueryString.
         /// </summary>
+        /// <param name="o">  The object to process.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>An int.</returns>
         public virtual int Update(object o, object key)
         {
             return Execute(CreateUpdateCommand(o, key));
         }
-        /// <summary>
-        /// Removes one or more records from the DB according to the passed-in WHERE
-        /// </summary>
+
+        /// <summary>Removes one or more records from the DB according to the passed-in WHERE.</summary>
+        /// <param name="key">  The key.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="args"> A variable-length parameters list containing arguments.</param>
+        /// <returns>An int.</returns>
         public int Delete(object key = null, string where = "", params object[] args)
         {
             return Execute(CreateDeleteCommand(where: where, key: key, args: args));
         }
+
         /// <summary>
-        /// Returns all records complying with the passed-in WHERE clause and arguments, 
-        /// ordered as specified, limited (TOP) by limit.
+        /// Returns all records complying with the passed-in WHERE clause and arguments, ordered as
+        /// specified, limited (TOP) by limit.
         /// </summary>
+        /// <param name="where">  The where.</param>
+        /// <param name="orderBy">Describes who order this object.</param>
+        /// <param name="limit">  The limit.</param>
+        /// <param name="columns">The columns.</param>
+        /// <param name="args">   A variable-length parameters list containing arguments.</param>
+        /// <returns>
+        /// An enumerator that allows foreach to be used to process all in this collection.
+        /// </returns>
         public virtual IEnumerable<dynamic> All(string where = "", string orderBy = "", int limit = 0, string columns = "*", params object[] args)
         {
             string sql = limit > 0 ? "SELECT TOP " + limit + " {0} FROM {1} " : "SELECT {0} FROM {1} ";
@@ -404,6 +493,13 @@ namespace Massive
         /// <summary>
         /// Returns a dynamic PagedResult. Result properties are Items, TotalPages, and TotalRecords.
         /// </summary>
+        /// <param name="where">      The where.</param>
+        /// <param name="orderBy">    Describes who order this object.</param>
+        /// <param name="columns">    The columns.</param>
+        /// <param name="pageSize">   Size of the page.</param>
+        /// <param name="currentPage">The current page.</param>
+        /// <param name="args">       A variable-length parameters list containing arguments.</param>
+        /// <returns>A dynamic.</returns>
         public virtual dynamic Paged(string where = "", string orderBy = "", string columns = "*", int pageSize = 20, int currentPage = 1, params object[] args)
         {
             dynamic result = new ExpandoObject();
@@ -429,9 +525,11 @@ namespace Massive
             result.Items = Query(string.Format(sql, columns, TableName), args);
             return result;
         }
-        /// <summary>
-        /// Returns a single row from the database
-        /// </summary>
+
+        /// <summary>Returns a single row from the database.</summary>
+        /// <param name="key">    The key.</param>
+        /// <param name="columns">The columns.</param>
+        /// <returns>A dynamic.</returns>
         public virtual dynamic Single(object key, string columns = "*")
         {
             var sql = string.Format("SELECT {0} FROM {1} WHERE {2} = @0", columns, TableName, PrimaryKeyField);

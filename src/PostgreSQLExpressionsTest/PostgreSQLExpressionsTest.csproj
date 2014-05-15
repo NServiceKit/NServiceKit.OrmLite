@@ -40,14 +40,14 @@
     <Reference Include="Npgsql">
       <HintPath>..\..\lib\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\lib\ServiceStack.Common.dll</HintPath>
+    <Reference Include="NServiceKit.Common">
+      <HintPath>..\..\lib\NServiceKit.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="NServiceKit.Interfaces">
+      <HintPath>..\..\lib\NServiceKit.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
+    <Reference Include="NServiceKit.Text">
+      <HintPath>..\..\lib\NServiceKit.Text.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -57,13 +57,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
+    <ProjectReference Include="..\NServiceKit.OrmLite\NServiceKit.OrmLite.csproj">
       <Project>{96179AC6-F6F1-40C3-9FDD-4F6582F54C5C}</Project>
-      <Name>ServiceStack.OrmLite</Name>
+      <Name>NServiceKit.OrmLite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceStack.OrmLite.PostgreSQL\ServiceStack.OrmLite.PostgreSQL.csproj">
+    <ProjectReference Include="..\NServiceKit.OrmLite.PostgreSQL\NServiceKit.OrmLite.PostgreSQL.csproj">
       <Project>{3220F088-BDD0-6979-AC0C-8C541C2E7DE5}</Project>
-      <Name>ServiceStack.OrmLite.PostgreSQL</Name>
+      <Name>NServiceKit.OrmLite.PostgreSQL</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

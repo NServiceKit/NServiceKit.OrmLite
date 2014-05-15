@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using MonoTouch.CoreFoundation;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Sqlite;
 
 namespace SqliteExpressionsTest.iOS
 {

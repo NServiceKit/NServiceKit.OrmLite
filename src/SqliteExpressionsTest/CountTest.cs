@@ -1,15 +1,17 @@
 ﻿using System;
-using ServiceStack.OrmLite;
+using NServiceKit.OrmLite;
 using System.IO;
 using System.Data;
-using ServiceStack.Common.Utils;
-using ServiceStack.OrmLite.Sqlite;
+using NServiceKit.Common.Utils;
+using NServiceKit.OrmLite.Sqlite;
 
 namespace SqliteExpressionsTest
 {
-
+    /// <summary>A count test.</summary>
     public class CountTest
     {
+        /// <summary>Gets file connection string.</summary>
+        /// <returns>The file connection string.</returns>
         private static string GetFileConnectionString()
         {
             var connectionString = "~/db.sqlite".MapAbsolutePath();
@@ -19,6 +21,7 @@ namespace SqliteExpressionsTest
             return connectionString;
         }
 
+        /// <summary>Tests this object.</summary>
         public static void Test()
         {
             OrmLiteConfig.DialectProvider = SqliteOrmLiteDialectProvider.Instance;

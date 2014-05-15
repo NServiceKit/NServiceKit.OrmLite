@@ -3,12 +3,12 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common.Extensions;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common.Extensions;
 
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Firebird;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Firebird;
 
 namespace TestLiteFirebir03
 {

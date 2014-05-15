@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Data;
 
-using ServiceStack.DataAnnotations;
+using NServiceKit.DataAnnotations;
 using System.Reflection;
 
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Firebird;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Firebird;
 
 
 namespace TestLiteFirebirdProcedures

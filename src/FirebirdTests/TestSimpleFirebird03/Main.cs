@@ -3,17 +3,20 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common;
 
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Firebird;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Firebird;
 
 namespace TestLiteFirebir03
 {
+    /// <summary>A main class.</summary>
 	class MainClass
 	{
+        /// <summary>Main entry-point for this application.</summary>
+        /// <param name="args">Array of command-line argument strings.</param>
 		public static void Main (string[] args)
 		{
 			OrmLiteConfig.DialectProvider = new FirebirdOrmLiteDialectProvider();

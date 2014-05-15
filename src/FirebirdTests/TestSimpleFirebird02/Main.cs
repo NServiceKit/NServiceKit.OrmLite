@@ -4,21 +4,22 @@ using System.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Common;
-using ServiceStack.DesignPatterns.Model;
+using NServiceKit.Common.Utils;
+using NServiceKit.DataAnnotations;
+using NServiceKit.Common;
+using NServiceKit.DesignPatterns.Model;
 
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Firebird;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Firebird;
 using Database.Records;
 
 namespace Database.Records
 {
-
+    /// <content>A company.</content>
     public partial class Company
     {
-
+        /// <summary>Gets the name of the upper.</summary>
+        /// <value>The name of the upper.</value>
         [Ignore]
         public string UpperName
         {
@@ -29,8 +30,11 @@ namespace Database.Records
 
 namespace TestLiteFirebird2
 {
+    /// <summary>A main class.</summary>
     class MainClass
     {
+        /// <summary>Main entry-point for this application.</summary>
+        /// <param name="args">Array of command-line argument strings.</param>
         public static void Main(string[] args)
         {
             //Set one before use (i.e. in a static constructor).

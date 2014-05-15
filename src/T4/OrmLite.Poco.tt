@@ -44,9 +44,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using ServiceStack.OrmLite;
-using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
+using NServiceKit.OrmLite;
+using NServiceKit.DataAnnotations;
+using NServiceKit.DesignPatterns.Model;
 
 namespace <#=Namespace #>
 {

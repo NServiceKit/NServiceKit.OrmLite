@@ -3,20 +3,21 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Data;
 
-using ServiceStack.DataAnnotations;
+using NServiceKit.DataAnnotations;
 using System.Reflection;
 
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Firebird;
+using NServiceKit.OrmLite;
+using NServiceKit.OrmLite.Firebird;
 
 
 namespace TestLiteFirebirdProcedures
 {
-
+    /// <summary>An employee.</summary>
     [Alias("EMPLOYEE")]
     public class Employee
     {
-
+        /// <summary>Gets or sets the identifier.</summary>
+        /// <value>The identifier.</value>
         [Alias("EMP_NO")]
         [Sequence("EMP_NO_GEN")]
         public Int16 Id
@@ -25,6 +26,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the person's first name.</summary>
+        /// <value>The name of the first.</value>
         [Alias("FIRST_NAME")]
         [Required]
         public string FirstName
@@ -33,6 +36,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the person's last name.</summary>
+        /// <value>The name of the last.</value>
         [Alias("LAST_NAME")]
         [Required]
         public string LastName
@@ -41,6 +46,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the phone extension.</summary>
+        /// <value>The phone extension.</value>
         [Alias("PHONE_EXT")]
         public string PhoneExtension
         {
@@ -48,6 +55,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the hire date.</summary>
+        /// <value>The hire date.</value>
         [Alias("HIRE_DATE")]
         [Required]
         public DateTime HireDate
@@ -56,6 +65,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the departament number.</summary>
+        /// <value>The departament number.</value>
         [Alias("DEPT_NO")]
         [Required]
         public string DepartamentNumber
@@ -64,6 +75,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the job code.</summary>
+        /// <value>The job code.</value>
         [Alias("JOB_CODE")]
         [Required]
         public string JobCode
@@ -72,6 +85,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the job grade.</summary>
+        /// <value>The job grade.</value>
         [Alias("JOB_GRADE")]
         public Int16 JobGrade
         {
@@ -79,7 +94,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
-
+        /// <summary>Gets or sets the job country.</summary>
+        /// <value>The job country.</value>
         [Alias("JOB_COUNTRY")]
         [Required]
         public string JobCountry
@@ -88,6 +104,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the salary.</summary>
+        /// <value>The salary.</value>
         [Alias("SALARY")]
         [Required]
         public Decimal Salary
@@ -98,9 +116,12 @@ namespace TestLiteFirebirdProcedures
 
     }
 
+    /// <summary>A procedure delete employee.</summary>
     [Alias("DELETE_EMPLOYEE")]
     public class ProcedureDeleteEmployee
     {
+        /// <summary>Gets or sets the employee number.</summary>
+        /// <value>The employee number.</value>
         [Alias("EMP_NUM")]
         public Int16 EmployeeNumber
         {
@@ -110,10 +131,12 @@ namespace TestLiteFirebirdProcedures
 
     }
 
+    /// <summary>A procedure sub total budget parameters.</summary>
     [Alias("SUB_TOT_BUDGET")]
     public class ProcedureSubTotalBudgetParameters
     {
-
+        /// <summary>Gets or sets the head departament.</summary>
+        /// <value>The head departament.</value>
         [Alias("HEAD_DEPT")]
         public string HeadDepartament
         {
@@ -123,9 +146,11 @@ namespace TestLiteFirebirdProcedures
 
     }
 
+    /// <summary>Encapsulates the result of a procedure sub total budget.</summary>
     public class ProcedureSubTotalBudgetResult
     {
-
+        /// <summary>Gets or sets the number of. </summary>
+        /// <value>The total.</value>
         [Alias("TOT_BUDGET")]
         public decimal Total
         {
@@ -133,6 +158,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the average.</summary>
+        /// <value>The average value.</value>
         [Alias("AVG_BUDGET")]
         public decimal Average
         {
@@ -140,6 +167,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the maximum.</summary>
+        /// <value>The maximum value.</value>
         [Alias("MAX_BUDGET")]
         public decimal Max
         {
@@ -147,6 +176,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the minimum.</summary>
+        /// <value>The minimum value.</value>
         [Alias("MIN_BUDGET")]
         public decimal Min
         {
@@ -155,11 +186,12 @@ namespace TestLiteFirebirdProcedures
         }
     }
 
-
+    /// <summary>A procedure show langs parameters.</summary>
     [Alias("SHOW_LANGS")]
     public class ProcedureShowLangsParameters
     {
-
+        /// <summary>Gets or sets the code.</summary>
+        /// <value>The code.</value>
         [Alias("CODE")]
         public string Code
         {
@@ -167,6 +199,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the grade.</summary>
+        /// <value>The grade.</value>
         [Alias("GRADE")]
         public Int16 Grade
         {
@@ -174,6 +208,8 @@ namespace TestLiteFirebirdProcedures
             set;
         }
 
+        /// <summary>Gets or sets the country.</summary>
+        /// <value>The country.</value>
         [Alias("CTY")]
         public string Country
         {
@@ -183,10 +219,11 @@ namespace TestLiteFirebirdProcedures
 
     }
 
-
+    /// <summary>Encapsulates the result of a procedure show langs.</summary>
     public class ProcedureShowLangsResult
     {
-
+        /// <summary>Gets or sets the language.</summary>
+        /// <value>The language.</value>
         [Alias("LANGUAGES")]
         public string Language
         {
@@ -195,10 +232,13 @@ namespace TestLiteFirebirdProcedures
         }
     }
 
+    /// <summary>A procedure all langs.</summary>
     [Alias("ALL_LANGS")]
     public class ProcedureAllLangs
     {
-
+        /// <summary>Executes the given database.</summary>
+        /// <param name="db">The database.</param>
+        /// <returns>A List&lt;ProcedureAllLangsResult&gt;</returns>
         public List<ProcedureAllLangsResult> Execute(IDbConnection db)
         {
             return db.SelectFromProcedure<ProcedureAllLangsResult>(this);
@@ -208,9 +248,11 @@ namespace TestLiteFirebirdProcedures
         //	get; set;
         //}
 
+        /// <summary>Encapsulates the result of a procedure all langs.</summary>
         public class ProcedureAllLangsResult
         {
-
+            /// <summary>Gets or sets the code.</summary>
+            /// <value>The code.</value>
             [Alias("CODE")]
             public string Code
             {
@@ -218,6 +260,8 @@ namespace TestLiteFirebirdProcedures
                 set;
             }
 
+            /// <summary>Gets or sets the grade.</summary>
+            /// <value>The grade.</value>
             [Alias("GRADE")]
             public string Grade
             {
@@ -225,6 +269,8 @@ namespace TestLiteFirebirdProcedures
                 set;
             }
 
+            /// <summary>Gets or sets the country.</summary>
+            /// <value>The country.</value>
             [Alias("COUNTRY")]
             public string Country
             {
@@ -232,6 +278,8 @@ namespace TestLiteFirebirdProcedures
                 set;
             }
 
+            /// <summary>Gets or sets the language.</summary>
+            /// <value>The language.</value>
             [Alias("LANG")]
             public string Language
             {
@@ -243,14 +291,11 @@ namespace TestLiteFirebirdProcedures
 
     }
 
-
-
-
-
-
-
+    /// <summary>A main class.</summary>
     class MainClass
     {
+        /// <summary>Main entry-point for this application.</summary>
+        /// <param name="args">Array of command-line argument strings.</param>
         public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
