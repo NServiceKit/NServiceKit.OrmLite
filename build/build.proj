@@ -58,7 +58,9 @@
   <Target Name="NuGetPack">
 
     <Delete Files="@(NugetPackageFilesToDelete)" />
-    
+    <MSBuild Projects="$(BuildSolutionDir)/src/NServiceKit.OrmLite.sln" Targets="Build"
+      Properties="Configuration=$(Configuration)" />
+
     <ItemGroup>
       <Sqlite32Net35Files Include="$(SrcDir)/NServiceKit.OrmLite.Sqlite32/bin/$(Configuration)/NServiceKit.OrmLite.*"></Sqlite32Net35Files>
       <Sqlite32Net40Files Include="$(SrcDir)/NServiceKit.OrmLite.Sqlite32/bin/x86/NServiceKit.OrmLite.*"></Sqlite32Net40Files>
