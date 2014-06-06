@@ -1,5 +1,4 @@
 @echo on
-if "%APPVEYOR%" == "" (goto START_BUILD)
 
 .\src\.nuget\nuget install
 

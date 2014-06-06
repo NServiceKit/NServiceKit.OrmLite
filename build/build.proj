@@ -4,8 +4,8 @@
   <Import Project="$(MSBuildProjectDirectory)/build.tasks" />
 
   <PropertyGroup>
-    <MajorVersion Condition="$(MajorVersion) == ''">3</MajorVersion>
-    <MinorVersion Condition="$(MinorVersion) == ''">9</MinorVersion>
+    <MajorVersion Condition="$(MajorVersion) == ''">1</MajorVersion>
+    <MinorVersion Condition="$(MinorVersion) == ''">0</MinorVersion>
     <PatchVersion Condition="$(PatchVersion) == ''">$(BUILD_NUMBER)</PatchVersion>
   </PropertyGroup>
 
@@ -17,8 +17,7 @@
     <NuGetPath>$(BuildSolutionDir)/src/.nuget/nuget.exe</NuGetPath>
     <NuGetPackageDir>$(BuildSolutionDir)/NuGet</NuGetPackageDir>
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion).0</Version>
-    <UnstableTag Condition="$(RELEASE) == ''">-unstable</UnstableTag>
-    <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(UnstableTag)</PackageVersion>
+    <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)</PackageVersion>
     <EnvVersion>$(MajorVersion).$(MinorVersion)$(PatchVersion)</EnvVersion>
   </PropertyGroup>
 
@@ -41,20 +40,14 @@
 
   <Target Name="Default" DependsOnTargets="$(DoBuildSolutionsDependsOn)" />
 
-  <Target Name="TeamCityBuild">
-    <!--<Copy SourceFiles="$(BuildSolutionDir)/tests/NServiceKit.Common.Tests/ci.app.config" DestinationFiles="$(BuildSolutionDir)/tests/NServiceKit.Common.Tests/app.config" />-->
-    <CallTarget Targets="Default" />
-  </Target>
-
   <Target Name="Default" DependsOnTargets="$(DoBuildSolutionsDependsOn)" />
 
   <Target Name="BeforeBuildSolutions">
     <Message Text="*****Before building solution*****" Importance="high"/>
-    <!--<Copy SourceFiles="Test/ci.app.config" DestinationFiles="Test/app.config" />-->
   </Target>
 
   <Target Name="UnitTests" DependsOnTargets="$(DoBuildSolutionsDependsOn)">
-      <Exec Command="$(BuildSolutionDir)/lib/tests/nunit-console/nunit-console-x86.exe $(BuildSolutionDir)/tests/NServiceKit.OrmLite.Tests/bin/$(Configuration)/NServiceKit.OrmLite.Tests.dll"/>
+      <Exec Command="$(BuildSolutionDir)/nuget-packages/NUnit.Runners.2.6.3/tools/nunit-console-x86.exe $(BuildSolutionDir)/tests/NServiceKit.OrmLite.Tests/bin/$(Configuration)/NServiceKit.OrmLite.Tests.dll"/>
   </Target>
 
   <Target Name="BuildSolutions">
@@ -63,16 +56,6 @@
   </Target>
   
   <Target Name="NuGetPack">
-
-    <!-- Update Version -->
-    <ItemGroup>
-        <RegexTransform Include="$(SrcDir)/**/AssemblyInfo.cs">
-            <Find>\d+\.\d+\.\d+\.\d+</Find>
-            <ReplaceWith>$(Version)</ReplaceWith>
-        </RegexTransform>
-    </ItemGroup>
-
-    <RegexTransform Items="@(RegexTransform)" />
 
     <Delete Files="@(NugetPackageFilesToDelete)" />
     
