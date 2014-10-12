@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using NServiceKit.Common.Tests.Models;
 using NServiceKit.DataAnnotations;
@@ -304,5 +305,42 @@ WHERE SchemaUri=@schemaUri
                 Assert.That(customers[1].Customer_Birth_Date, Is.EqualTo(new DateTime(1980, 01, 01)));
             }
         }
-    }
+
+	    [Test]
+	    public void QueryAndQueryEachEachMustExecuteTheQueryPassedToTheMethod()
+	    {
+		    using (var db = OpenDbConnection())
+		    {
+			    const string query = @"SELECT CustomerId,
+						                        CustomerName
+						                 FROM CustomerDto
+						                    WHERE CustomerName IS NOT NULL
+						                    AND CustomerName <> ''";
+				db.CreateTableIfNotExists<CustomerDto>();
+				DateTime birthDate = DateTime.Now;
+
+				db.Insert(new CustomerDto {CustomerId = 1, CustomerName = "", Customer_Birth_Date = birthDate});
+				db.Insert(new CustomerDto {CustomerId = 2, CustomerName = "Test", Customer_Birth_Date = birthDate});
+				IList<CustomerDto> customers = db.Query<CustomerDto>(query);
+				Assert.AreEqual(1, customers.Count);
+				CustomerDto customer = customers.First();
+				Assert.AreEqual(2, customer.CustomerId);
+				Assert.AreEqual("Test", customer.CustomerName);
+				Assert.AreNotEqual(birthDate, customer.Customer_Birth_Date);
+				Assert.AreEqual(DateTime.MinValue, customer.Customer_Birth_Date);
+
+			    Assert.AreEqual(query, db.GetLastSql());
+				
+				customers = db.QueryEach<CustomerDto>(query).ToList();
+				Assert.AreEqual(1, customers.Count);
+				customer = customers.First();
+				Assert.AreEqual(2, customer.CustomerId);
+				Assert.AreEqual("Test", customer.CustomerName);
+				Assert.AreNotEqual(birthDate, customer.Customer_Birth_Date);
+				Assert.AreEqual(DateTime.MinValue, customer.Customer_Birth_Date);
+
+			    Assert.AreEqual(query, db.GetLastSql());
+		    }
+	    }
+	}
 }

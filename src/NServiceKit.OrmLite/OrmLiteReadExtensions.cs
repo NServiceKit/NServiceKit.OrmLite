@@ -777,7 +777,11 @@ namespace NServiceKit.OrmLite
         /// </returns>
 	    internal static IEnumerable<T> QueryEach<T>(this IDbCommand dbCmd, string sql, object anonType = null)
 		{
-            if (anonType != null) dbCmd.SetFilters<T>(anonType);
+			if (anonType != null)
+			{
+				dbCmd.SetParameters<T>(anonType, excludeNulls: false);
+			}
+			dbCmd.CommandText = OrmLiteConfig.DialectProvider.ToSelectStatement(typeof(T), sql);
 
 			return dbCmd.Each<T>();
 		}
