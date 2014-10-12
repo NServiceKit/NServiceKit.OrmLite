@@ -126,7 +126,7 @@ END;";
             results = db.SqlList<int>("EXEC DummyColumn 10");
             Assert.That(results.Sum(), Is.EqualTo(expected));
 
-            results = db.SqlList<int>("EXEC DummyTable @Times", new Dictionary<string, object> { { "Times", 10 } });
+            results = db.SqlList<int>("EXEC DummyColumn @Times", new Dictionary<string, object> { { "Times", 10 } });
             Assert.That(results.Sum(), Is.EqualTo(expected));
         }
 
