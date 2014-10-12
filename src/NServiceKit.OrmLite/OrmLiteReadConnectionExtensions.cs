@@ -58,7 +58,7 @@ namespace NServiceKit.OrmLite
         /// </returns>
         public static IEnumerable<T> Each<T>(this IDbConnection dbConn)
         {
-            return dbConn.ExecLazy(dbCmd => dbCmd.Each<T>());
+            return dbConn.ExecLazy(dbCmd => dbCmd.Each<T>(null));
         }
 
         /// <summary>Enumerates each in this collection.</summary>
