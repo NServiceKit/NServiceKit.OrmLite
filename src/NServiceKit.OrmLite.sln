@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{6CEB3EDE
 		..\build\build.proj = ..\build\build.proj
 		..\build\build.tasks = ..\build\build.tasks
 		..\build\copy.bat = ..\build\copy.bat
-		..\NuGet\NuGetPack.cmd = ..\NuGet\NuGetPack.cmd
-		..\README.md = ..\README.md
 		..\NuGet\NServiceKit.OrmLite.Firebird\NServiceKit.ormlite.firebird.nuspec = ..\NuGet\NServiceKit.OrmLite.Firebird\NServiceKit.ormlite.firebird.nuspec
 		..\NuGet\NServiceKit.OrmLite.MySql\NServiceKit.ormlite.mysql.nuspec = ..\NuGet\NServiceKit.OrmLite.MySql\NServiceKit.ormlite.mysql.nuspec
 		..\NuGet\NServiceKit.OrmLite.Oracle\NServiceKit.ormlite.oracle.nuspec = ..\NuGet\NServiceKit.OrmLite.Oracle\NServiceKit.ormlite.oracle.nuspec
@@ -18,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{6CEB3EDE
 		..\NuGet\NServiceKit.OrmLite.Sqlite64\NServiceKit.ormlite.sqlite64.nuspec = ..\NuGet\NServiceKit.OrmLite.Sqlite64\NServiceKit.ormlite.sqlite64.nuspec
 		..\NuGet\NServiceKit.OrmLite.SqlServer\NServiceKit.ormlite.sqlserver.nuspec = ..\NuGet\NServiceKit.OrmLite.SqlServer\NServiceKit.ormlite.sqlserver.nuspec
 		..\NuGet\NServiceKit.OrmLite.T4\NServiceKit.ormlite.t4.nuspec = ..\NuGet\NServiceKit.OrmLite.T4\NServiceKit.ormlite.t4.nuspec
+		..\NuGet\NuGetPack.cmd = ..\NuGet\NuGetPack.cmd
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FirebirdTests", "FirebirdTests", "{AA7D8994-D1CA-484E-B3A4-EF6044CBE9BB}"
@@ -55,8 +55,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceKit.OrmLite.Sqlite32", "NServiceKit.OrmLite.Sqlite32\NServiceKit.OrmLite.Sqlite32.csproj", "{EAA0F35E-66CD-4B3D-BB17-7CE8EDE83AE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceKit.OrmLite.Sqlite32Tests", "..\tests\NServiceKit.OrmLite.Sqlite32Tests\NServiceKit.OrmLite.Sqlite32Tests.csproj", "{956FD518-A6CC-46B1-A93A-1C92779BF942}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMapper", "dapper-dot-net\SqlMapper.csproj", "{A2A80512-11F4-4028-A995-505463632C84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceKit.OrmLite.SqlServerTests", "NServiceKit.OrmLite.SqlServerTests\NServiceKit.OrmLite.SqlServerTests.csproj", "{96793C11-2A99-4217-8946-3E0DB9534A4D}"
 EndProject
@@ -114,6 +112,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T4", "T4", "{ACB237F8-B931-
 		T4\OrmLite.Poco.tt = T4\OrmLite.Poco.tt
 		T4\OrmLite.SP.tt = T4\OrmLite.SP.tt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper NET35", "dapper-dot-net\Dapper NET35\Dapper NET35.csproj", "{B26305D8-3A89-4D68-A981-9BBF378B81FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -556,29 +556,6 @@ Global
 		{956FD518-A6CC-46B1-A93A-1C92779BF942}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{956FD518-A6CC-46B1-A93A-1C92779BF942}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.Build.0 = Release|Any CPU
 		{956FD518-A6CC-46B1-A93A-1C92779BF942}.STATIC_ONLY NO_EXPRESSIONS|x86.ActiveCfg = Release|Any CPU
-		{A2A80512-11F4-4028-A995-505463632C84}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Debug|x86.ActiveCfg = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Debug|x86.Build.0 = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Default|Any CPU.ActiveCfg = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Default|Mixed Platforms.ActiveCfg = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Default|x86.ActiveCfg = Debug|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.MonoTouch|Any CPU.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.MonoTouch|Mixed Platforms.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.MonoTouch|Mixed Platforms.Build.0 = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.MonoTouch|x86.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.MonoTouch|x86.Build.0 = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Release|Any CPU.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Release|Mixed Platforms.Build.0 = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Release|x86.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.Release|x86.Build.0 = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.Build.0 = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.STATIC_ONLY NO_EXPRESSIONS|x86.ActiveCfg = Release|x86
-		{A2A80512-11F4-4028-A995-505463632C84}.STATIC_ONLY NO_EXPRESSIONS|x86.Build.0 = Release|x86
 		{96793C11-2A99-4217-8946-3E0DB9534A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96793C11-2A99-4217-8946-3E0DB9534A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96793C11-2A99-4217-8946-3E0DB9534A4D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -1163,6 +1140,31 @@ Global
 		{8CA77485-7F0F-4C59-8C25-312D43EF1F8C}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.ActiveCfg = STATIC_ONLY NO_EXPRESSIONS|Any CPU
 		{8CA77485-7F0F-4C59-8C25-312D43EF1F8C}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.Build.0 = STATIC_ONLY NO_EXPRESSIONS|Any CPU
 		{8CA77485-7F0F-4C59-8C25-312D43EF1F8C}.STATIC_ONLY NO_EXPRESSIONS|x86.ActiveCfg = STATIC_ONLY NO_EXPRESSIONS|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Default|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Default|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Default|x86.ActiveCfg = Debug|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.MonoTouch|Any CPU.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.MonoTouch|Any CPU.Build.0 = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.MonoTouch|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.MonoTouch|Mixed Platforms.Build.0 = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.MonoTouch|x86.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.Release|x86.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.Build.0 = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.Build.0 = Release|Any CPU
+		{B26305D8-3A89-4D68-A981-9BBF378B81FA}.STATIC_ONLY NO_EXPRESSIONS|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

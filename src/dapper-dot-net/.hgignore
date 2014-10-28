@@ -1,3 +1,11 @@
 /*.suo
 bin/*
 obj/*
+/*.user
+glob:Dapper/NuGet.exe
+syntax: glob
+*.docstates
+glob:Dapper.Contrib/NuGet.exe
+*.nupkg
+*/NuGet.exe
+_ReSharper.*
