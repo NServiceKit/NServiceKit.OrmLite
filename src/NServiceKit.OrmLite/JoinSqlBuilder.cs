@@ -198,7 +198,12 @@ namespace NServiceKit.OrmLite
             throw new Exception("Only columns are allowed");
         }
 
-        /// <summary>Selects the given select columns.</summary>
+        public JoinSqlBuilder<TNewPoco, TBasePoco> SelectCountDistinct<T>(Expression<Func<T, object>> selectColumn)
+        {
+            return SelectGenericAggregate<T>(selectColumn, "COUNT", true);
+        }
+
+	    /// <summary>Selects the given select columns.</summary>
         /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="selectColumns">The select columns.</param>
@@ -289,7 +294,7 @@ namespace NServiceKit.OrmLite
         /// <param name="selectColumn">The select column.</param>
         /// <param name="functionName">Name of the function.</param>
         /// <returns>A JoinSqlBuilder&lt;TNewPoco,TBasePoco&gt;</returns>
-        private JoinSqlBuilder<TNewPoco, TBasePoco> SelectGenericAggregate<T>(Expression<Func<T, object>> selectColumn, string functionName)
+        private JoinSqlBuilder<TNewPoco, TBasePoco> SelectGenericAggregate<T>(Expression<Func<T, object>> selectColumn, string functionName, bool distinct = false)
         {
             Type associatedType = this.PreviousAssociatedType(typeof(T), typeof(T));
             if (associatedType == null)
@@ -305,7 +310,7 @@ namespace NServiceKit.OrmLite
             {
                 throw new Exception("Expression should select only one Column ");
             }
-            this.columnList.Add(string.Format(" {0}({1}) ", functionName.ToUpper(), columns[0]));
+            this.columnList.Add(string.Format(" {0}({1}{2}) ", functionName.ToUpper(), distinct ? "DISTINCT " : string.Empty, columns[0]));
             return this;
         }
 

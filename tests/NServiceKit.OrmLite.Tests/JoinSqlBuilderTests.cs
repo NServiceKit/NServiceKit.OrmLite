@@ -93,6 +93,7 @@ namespace NServiceKit.OrmLite.Tests
 		[Test ()]
 		public void FieldNameLeftJoinTest ()
 		{
+			OrmLiteConfig.DialectProvider = SqliteDialect.Provider;
 			var joinQuery = new JoinSqlBuilder<User, User> ().LeftJoin<User, Address> (x => x.Id, x => x.UserId).ToSql ();
 			var expected = "SELECT \"User\".\"Id\",\"User\".\"Name\",\"User\".\"Age\" \nFROM \"User\" \n LEFT OUTER JOIN  \"Address\" ON \"User\".\"Id\" = \"Address\".\"UserId\"  \n";
 
@@ -114,7 +115,9 @@ namespace NServiceKit.OrmLite.Tests
         /// <summary>Tests double where left join.</summary>
 		[Test ()]
 		public void DoubleWhereLeftJoinTest ()
-		{
+        {
+	        OrmLiteConfig.DialectProvider = SqliteDialect.Provider;
+
 			var joinQuery = new JoinSqlBuilder<User, User> ().LeftJoin<User, WithAliasAddress> (x => x.Id, x => x.UserId
 			                                                                           , sourceWhere: x => x.Age > 18
 			                                                                           , destinationWhere: x => x.Country == "Italy").ToSql ();
@@ -122,5 +125,31 @@ namespace NServiceKit.OrmLite.Tests
 
 			Assert.AreEqual (expected, joinQuery);
 		}
+
+	    [Test()]
+	    public void SelectCountDistinctTest()
+	    {
+			OrmLiteConfig.DialectProvider = SqliteDialect.Provider;
+		    var joinQuery =
+			    new JoinSqlBuilder<User, User>().LeftJoin<User, Address>(x => x.Id, x => x.UserId)
+			                                    .SelectCountDistinct<User>(x => x.Id).ToSql();
+		    var expected =
+			    "SELECT  COUNT(DISTINCT \"User\".\"Id\")  \nFROM \"User\" \n LEFT OUTER JOIN  \"Address\" ON \"User\".\"Id\" = \"Address\".\"UserId\"  \n";
+
+		    Assert.AreEqual(expected, joinQuery);
+	    }
+
+	    [Test()]
+	    public void SelectCountTest()
+	    {
+			OrmLiteConfig.DialectProvider = SqliteDialect.Provider;
+		    var joinQuery =
+			    new JoinSqlBuilder<User, User>().LeftJoin<User, Address>(x => x.Id, x => x.UserId)
+			                                    .SelectCount<User>(x => x.Id).ToSql();
+		    var expected =
+			    "SELECT  COUNT(\"User\".\"Id\")  \nFROM \"User\" \n LEFT OUTER JOIN  \"Address\" ON \"User\".\"Id\" = \"Address\".\"UserId\"  \n";
+
+		    Assert.AreEqual(expected, joinQuery);
+	    }
 	}
 }

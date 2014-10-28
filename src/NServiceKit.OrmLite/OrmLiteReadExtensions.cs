@@ -69,6 +69,23 @@ namespace NServiceKit.OrmLite
 				Log.Debug(fmt);
 		}
 
+		internal static void SetDbCommandParams(this IDbCommand dbCmd, string sql,
+		                                        IEnumerable<IDataParameter> parameters = null)
+		{
+			LogDebug(sql);
+			dbCmd.CommandTimeout = OrmLiteConfig.CommandTimeout;
+			dbCmd.CommandText = sql;
+
+			if (parameters != null)
+			{
+				dbCmd.Parameters.Clear();
+				foreach (var param in parameters)
+				{
+					dbCmd.Parameters.Add(param);
+				}
+			}
+		}
+
         /// <summary>An IDbCommand extension method that executes the reader operation.</summary>
         /// <param name="dbCmd">The dbCmd to act on.</param>
         /// <param name="sql">  The SQL.</param>
@@ -212,17 +229,6 @@ namespace NServiceKit.OrmLite
 
         /// <summary>Enumerates each in this collection.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="dbCmd">The dbCmd to act on.</param>
-        /// <returns>
-        /// An enumerator that allows foreach to be used to process each in this collection.
-        /// </returns>
-	    internal static IEnumerable<T> Each<T>(this IDbCommand dbCmd)
-		{
-			return Each<T>(dbCmd, null);
-		}
-
-        /// <summary>Enumerates each in this collection.</summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="dbCmd">       The dbCmd to act on.</param>
         /// <param name="filter">      Specifies the filter.</param>
         /// <param name="filterParams">Options for controlling the filter.</param>
@@ -231,18 +237,8 @@ namespace NServiceKit.OrmLite
         /// </returns>
 	    internal static IEnumerable<T> Each<T>(this IDbCommand dbCmd, string filter, params object[] filterParams)
 		{
-			var fieldDefs = ModelDefinition<T>.Definition.FieldDefinitionsArray;
-			using (var reader = dbCmd.ExecReader(
-				OrmLiteConfig.DialectProvider.ToSelectStatement(typeof(T),  filter, filterParams)))
-			{
-				var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition);
-                while (reader.Read())
-				{
-                    var row = OrmLiteUtilExtensions.CreateInstance<T>();
-                    row.PopulateWithSqlReader(reader, fieldDefs, indexCache);
-					yield return row;
-				}
-			}
+			dbCmd.SetDbCommandParams(OrmLiteConfig.DialectProvider.ToSelectStatement(typeof(T), filter, filterParams));
+			return dbCmd.Each<T>();
 		}
 
         /// <summary>An IDbCommand extension method that firsts.</summary>
@@ -781,19 +777,13 @@ namespace NServiceKit.OrmLite
         /// </returns>
 	    internal static IEnumerable<T> QueryEach<T>(this IDbCommand dbCmd, string sql, object anonType = null)
 		{
-            if (anonType != null) dbCmd.SetFilters<T>(anonType);
-
-			var fieldDefs = ModelDefinition<T>.Definition.FieldDefinitionsArray;
-			using (var reader = dbCmd.ExecuteReader())
+			if (anonType != null)
 			{
-				var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition);
-                while (reader.Read())
-				{
-                    var row = OrmLiteUtilExtensions.CreateInstance<T>();
-					row.PopulateWithSqlReader(reader, fieldDefs, indexCache);
-					yield return row;
-				}
+				dbCmd.SetParameters<T>(anonType, excludeNulls: false);
 			}
+			dbCmd.CommandText = OrmLiteConfig.DialectProvider.ToSelectStatement(typeof(T), sql);
+
+			return dbCmd.Each<T>();
 		}
 
         /// <summary>Enumerates each where in this collection.</summary>
@@ -807,17 +797,7 @@ namespace NServiceKit.OrmLite
 		{
 			dbCmd.SetFilters<T>(anonType);
 
-			var fieldDefs = ModelDefinition<T>.Definition.FieldDefinitionsArray;
-			using (var reader = dbCmd.ExecuteReader())
-			{
-				var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition);
-                while (reader.Read())
-				{
-                    var row = OrmLiteUtilExtensions.CreateInstance<T>();
-                    row.PopulateWithSqlReader(reader, fieldDefs, indexCache);
-					yield return row;
-				}
-			}
+			return dbCmd.Each<T>();
 		}
 
         /// <summary>An IDbCommand extension method that gets by identifier or default.</summary>
@@ -1171,6 +1151,21 @@ namespace NServiceKit.OrmLite
 			if (result is decimal) return Convert.ToInt64((decimal)result);
 			if (result is ulong) return (long)Convert.ToUInt64(result);
 			return (long)result;
-		}			
+		}
+
+		private static IEnumerable<T> Each<T>(this IDbCommand dbCmd)
+		{
+			var fieldDefs = ModelDefinition<T>.Definition.FieldDefinitionsArray;
+			using (var reader = dbCmd.ExecuteReader())
+			{
+				var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition);
+				while (reader.Read())
+				{
+					var row = OrmLiteUtilExtensions.CreateInstance<T>();
+					row.PopulateWithSqlReader(reader, fieldDefs, indexCache);
+					yield return row;
+				}
+			}
+		}
 	}
 }
