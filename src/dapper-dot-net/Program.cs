@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Data.SqlClient;
-using System.Data.Metadata.Edm;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Reflection;
-using System.Data.EntityClient;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Linq;
 using NServiceKit.DataAnnotations;
 
