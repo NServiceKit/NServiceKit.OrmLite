@@ -1,0 +1,13 @@
+box: floydpink/mono@0.0.6
+build:
+  steps:
+    # A comment
+    -  script:
+        name: Build!
+        code: |-
+          ./build.sh          
+  after-steps:
+    -  script:
+        name: Test!
+        code: |-
+          ./runTests.sh
