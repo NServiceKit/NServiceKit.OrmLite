@@ -40,3 +40,4 @@ nuget-packages/
 *.userprefs
 add.sh
 .gitignore
+src/packages/
