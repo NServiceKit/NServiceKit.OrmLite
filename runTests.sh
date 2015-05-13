@@ -1,5 +1,11 @@
-./nunit.sh ./tests/NServiceKit.ServiceHost.Tests/bin/Release/NServiceKit.ServiceHost.Tests.dll /noshadow
-+# - .ci/nunit.sh ./tests/NServiceKit.Messaging.Tests/bin/Release/NServiceKit.Messaging.Tests.dll /noshadow
-+# - .ci/nunit.sh ./tests/NServiceKit.Common.Tests/bin/Release/NServiceKit.Common.Tests.dll /noshadow
-+# - .ci/nunit.sh ./tests/NServiceKit.Auth.Tests/bin/Release/NServiceKit.Auth.Tests.dll /noshadow
+./nunit.sh ./tests/NServiceKit.OrmLite.Tests/bin/Release/NServiceKit.OrmLite.Tests.dll /noshadow
+./nunit.sh ./tests/NServiceKit.OrmLite.FirebirdTests/bin/Release/NServiceKit.OrmLite.FirebirdTests.dll /noshadow
+./nunit.sh ./tests/NServiceKit.OrmLite.Sqlite32Tests/bin/Release/NServiceKit.OrmLite.Sqlite32Tests.dll /noshadow
+./nunit.sh ./tests/NServiceKit.OrmLite.Sqlite64Tests/bin/Release/NServiceKit.OrmLite.Sqlite64Tests.dll /noshadow
+./nunit.sh ./tests/NServiceKit.OrmLite.TestsPerf/bin/Release/NServiceKit.OrmLite.TestsPerf.exe /noshadow
+
+
+
+
+
 
