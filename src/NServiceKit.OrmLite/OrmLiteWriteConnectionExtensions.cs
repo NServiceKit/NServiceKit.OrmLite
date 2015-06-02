@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace NServiceKit.OrmLite
 {
@@ -295,6 +296,18 @@ namespace NServiceKit.OrmLite
             where T : new()
         {
             dbConn.Exec(dbCmd => dbCmd.Insert(objs));
+        }
+
+
+        /// <summary>An IDbConnection extension method that inserts where not exists.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="dbConn">The dbConn to act on.</param>
+        /// <param name="obj">  The object.</param>
+        /// <param name="wherePredicate"> predicate to create where clause</param>
+        public static void InsertWhereNotExists<T>(this IDbConnection dbConn, T obj, Expression<Func<T, bool>> wherePredicate)
+            where T : new()
+        {
+            dbConn.Exec(dbCmd => dbCmd.InsertWhereNotExists(obj,wherePredicate));
         }
 
         /// <summary>An IDbConnection extension method that inserts all.</summary>

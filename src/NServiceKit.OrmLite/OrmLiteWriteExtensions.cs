@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using NServiceKit.Common.Utils;
 using NServiceKit.Logging;
@@ -84,38 +85,38 @@ namespace NServiceKit.OrmLite
         {
             var modelDef = modelType.GetModelDefinition();
 
-			var dialectProvider = OrmLiteConfig.DialectProvider;
-			var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef.ModelName);
-			var tableExists = dialectProvider.DoesTableExist(dbCmd, tableName);
-			if (overwrite && tableExists)
+            var dialectProvider = OrmLiteConfig.DialectProvider;
+            var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef.ModelName);
+            var tableExists = dialectProvider.DoesTableExist(dbCmd, tableName);
+            if (overwrite && tableExists)
             {
                 DropTable(dbCmd, modelDef);
-            	tableExists = false;
+                tableExists = false;
             }
 
             try
             {
-				if (!tableExists)
-				{
-					ExecuteSql(dbCmd, dialectProvider.ToCreateTableStatement(modelType));
+                if (!tableExists)
+                {
+                    ExecuteSql(dbCmd, dialectProvider.ToCreateTableStatement(modelType));
 
-					var sqlIndexes = dialectProvider.ToCreateIndexStatements(modelType);
-					foreach (var sqlIndex in sqlIndexes)
-					{
-						try
-						{
-							dbCmd.ExecuteSql(sqlIndex);
-						}
-						catch (Exception exIndex)
-						{
-							if (IgnoreAlreadyExistsError(exIndex))
-							{
-								Log.DebugFormat("Ignoring existing index '{0}': {1}", sqlIndex, exIndex.Message);
-								continue;
-							}
-							throw;
-						}
-					}
+                    var sqlIndexes = dialectProvider.ToCreateIndexStatements(modelType);
+                    foreach (var sqlIndex in sqlIndexes)
+                    {
+                        try
+                        {
+                            dbCmd.ExecuteSql(sqlIndex);
+                        }
+                        catch (Exception exIndex)
+                        {
+                            if (IgnoreAlreadyExistsError(exIndex))
+                            {
+                                Log.DebugFormat("Ignoring existing index '{0}': {1}", sqlIndex, exIndex.Message);
+                                continue;
+                            }
+                            throw;
+                        }
+                    }
 
                     var sequenceList = dialectProvider.SequenceList(modelType);
                     if (sequenceList.Count > 0)
@@ -150,7 +151,7 @@ namespace NServiceKit.OrmLite
                             }
                         }
                     }
-				}
+                }
             }
             catch (Exception ex)
             {
@@ -246,14 +247,14 @@ namespace NServiceKit.OrmLite
             //ignore Sqlite table already exists error
             const string sqliteAlreadyExistsError = "already exists";
             const string sqlServerAlreadyExistsError = "There is already an object named";
-			 return ex.Message.Contains(sqliteAlreadyExistsError)
-                   || ex.Message.Contains(sqlServerAlreadyExistsError)	;
+            return ex.Message.Contains(sqliteAlreadyExistsError)
+                  || ex.Message.Contains(sqlServerAlreadyExistsError);
         }
 
         /// <summary>DEFINE GENERATOR failed.</summary>
         /// <param name="ex">The ex.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>		
-		private static bool IgnoreAlreadyExistsGeneratorError(Exception ex)
+        private static bool IgnoreAlreadyExistsGeneratorError(Exception ex)
         {
             const string fbError = "attempt to store duplicate value";
             return ex.Message.Contains(fbError);
@@ -288,7 +289,7 @@ namespace NServiceKit.OrmLite
         }
 
         /// <summary>The not found.</summary>
-    	private const int NotFound = -1;
+        private const int NotFound = -1;
 
         /// <summary>A T extension method that populate with SQL reader.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -299,10 +300,10 @@ namespace NServiceKit.OrmLite
         /// <returns>A T.</returns>
         public static T PopulateWithSqlReader<T>(this T objWithProperties, IDataReader dataReader, FieldDefinition[] fieldDefs, Dictionary<string, int> indexCache)
         {
-			try
-			{
-				foreach (var fieldDef in fieldDefs)
-				{
+            try
+            {
+                foreach (var fieldDef in fieldDefs)
+                {
                     int index;
                     if (indexCache != null)
                     {
@@ -325,17 +326,17 @@ namespace NServiceKit.OrmLite
                             index = TryGuessColumnIndex(fieldDef.FieldName, dataReader);
                         }
                     }
-                       
-					if (index == NotFound) continue;
-					var value = dataReader.GetValue(index);
-					fieldDef.SetValue(objWithProperties, value);
-				}
-			}
-			catch (Exception ex)
-			{
-				Log.Error(ex);
-			} 
-			return objWithProperties;
+
+                    if (index == NotFound) continue;
+                    var value = dataReader.GetValue(index);
+                    fieldDef.SetValue(objWithProperties, value);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+            return objWithProperties;
         }
 
         /// <summary>The allowed property characters regular expression.</summary>
@@ -413,24 +414,24 @@ namespace NServiceKit.OrmLite
         /// <param name="dbCmd">The dbCmd to act on.</param>
         /// <param name="objs"> The objects.</param>
         internal static void Update<T>(this IDbCommand dbCmd, params T[] objs)
-		{
-			foreach (var obj in objs)
-			{
-				dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToUpdateRowStatement(obj)); 
-			}
-		}
+        {
+            foreach (var obj in objs)
+            {
+                dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToUpdateRowStatement(obj));
+            }
+        }
 
         /// <summary>An IDbCommand extension method that updates all.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="dbCmd">The dbCmd to act on.</param>
         /// <param name="objs"> The objects.</param>
         internal static void UpdateAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs)
-		{
-			foreach (var obj in objs)
-			{
-				dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToUpdateRowStatement(obj));
-			}
-		}
+        {
+            foreach (var obj in objs)
+            {
+                dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToUpdateRowStatement(obj));
+            }
+        }
 
         /// <summary>An IDbConnection extension method that creates update statement.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -447,24 +448,24 @@ namespace NServiceKit.OrmLite
         /// <param name="dbCmd">The dbCmd to act on.</param>
         /// <param name="objs"> The objects.</param>
         internal static void Delete<T>(this IDbCommand dbCmd, params T[] objs)
-		{
-			foreach (var obj in objs)
-			{
-				dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToDeleteRowStatement(obj));
-			}
-		}
+        {
+            foreach (var obj in objs)
+            {
+                dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToDeleteRowStatement(obj));
+            }
+        }
 
         /// <summary>An IDbCommand extension method that deletes all described by dbCmd.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="dbCmd">The dbCmd to act on.</param>
         /// <param name="objs"> The objects.</param>
         internal static void DeleteAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs)
-		{
-			foreach (var obj in objs)
-			{
-				dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToDeleteRowStatement(obj));
-			}
-		}
+        {
+            foreach (var obj in objs)
+            {
+                dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToDeleteRowStatement(obj));
+            }
+        }
 
         /// <summary>An IDbCommand extension method that deletes the by identifier.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -510,7 +511,7 @@ namespace NServiceKit.OrmLite
         internal static void DeleteByIdParam<T>(this IDbCommand dbCmd, object id)
         {
             var modelDef = ModelDefinition<T>.Definition;
-            var idParamString = OrmLiteConfig.DialectProvider.ParamString+"0";
+            var idParamString = OrmLiteConfig.DialectProvider.ParamString + "0";
 
             var sql = string.Format("DELETE FROM {0} WHERE {1} = {2}",
                 OrmLiteConfig.DialectProvider.GetQuotedTableName(modelDef),
@@ -521,7 +522,7 @@ namespace NServiceKit.OrmLite
             idParam.ParameterName = idParamString;
             idParam.Value = id;
             dbCmd.Parameters.Add(idParam);
-            
+
             dbCmd.ExecuteSql(sql);
         }
 
@@ -538,8 +539,8 @@ namespace NServiceKit.OrmLite
         /// <param name="tableType">Type of the table.</param>
         internal static void DeleteAll(this IDbCommand dbCmd, Type tableType)
         {
-			dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToDeleteStatement(tableType, null));
-		}
+            dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToDeleteStatement(tableType, null));
+        }
 
         /// <summary>An IDbCommand extension method that deletes this object.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -584,24 +585,36 @@ namespace NServiceKit.OrmLite
         /// <param name="dbCmd">The dbCmd to act on.</param>
         /// <param name="objs"> The objects.</param>
         internal static void Insert<T>(this IDbCommand dbCmd, params T[] objs)
-		{
-			foreach (var obj in objs)
-			{
-				dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToInsertRowStatement(dbCmd, obj));
-			}
-		}
+        {
+            foreach (var obj in objs)
+            {
+                dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToInsertRowStatement(dbCmd, obj));
+            }
+        }
+
+        /// <summary>An IDbCommand extension method that inserts where not exists.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="dbCmd">The dbCmd to act on.</param>
+        /// <param name="obj"> The object.</param>
+        /// <param name="predicate"> the predicate to generate where clause</param>
+        internal static void InsertWhereNotExists<T>(this IDbCommand dbCmd, T obj, Expression<Func<T, bool>> predicate)
+        {
+            var ev = OrmLiteConfig.DialectProvider.ExpressionVisitor<T>();
+            var sql = ev.Where(predicate).ToInsertWhereNotExistsStatement(obj);
+            dbCmd.ExecuteSql(sql);
+        }
 
         /// <summary>An IDbCommand extension method that inserts all.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="dbCmd">The dbCmd to act on.</param>
         /// <param name="objs"> The objects.</param>
         internal static void InsertAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs)
-		{
-			foreach (var obj in objs)
-			{
-				dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToInsertRowStatement(dbCmd, obj));
-			}
-		}
+        {
+            foreach (var obj in objs)
+            {
+                dbCmd.ExecuteSql(OrmLiteConfig.DialectProvider.ToInsertRowStatement(dbCmd, obj));
+            }
+        }
 
         /// <summary>An IDbConnection extension method that creates insert statement.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -691,10 +704,10 @@ namespace NServiceKit.OrmLite
         /// <param name="obj">      The object.</param>
         internal static void ExecuteProcedure<T>(this IDbCommand dbCommand, T obj)
         {
-			string sql = OrmLiteConfig.DialectProvider.ToExecuteProcedureStatement(obj);
-			dbCommand.CommandType= CommandType.StoredProcedure;
-			dbCommand.ExecuteSql(sql);
-		}
-		
+            string sql = OrmLiteConfig.DialectProvider.ToExecuteProcedureStatement(obj);
+            dbCommand.CommandType = CommandType.StoredProcedure;
+            dbCommand.ExecuteSql(sql);
+        }
+
     }
 }
