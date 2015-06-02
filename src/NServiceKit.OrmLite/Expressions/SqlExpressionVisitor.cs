@@ -18,7 +18,7 @@ namespace NServiceKit.OrmLite
         private Expression<Func<T, bool>> underlyingExpression;
 
         /// <summary>The order by properties.</summary>
-        private List<string> orderByProperties = new List<string>(); 
+        private List<string> orderByProperties = new List<string>();
 
         /// <summary>The select expression.</summary>
         private string selectExpression = string.Empty;
@@ -54,7 +54,7 @@ namespace NServiceKit.OrmLite
         /// Gets or sets a value indicating whether the prefix field with table name.
         /// </summary>
         /// <value>true if prefix field with table name, false if not.</value>
-        public bool PrefixFieldWithTableName {get;set;}
+        public bool PrefixFieldWithTableName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the where statement without where string.
@@ -300,7 +300,7 @@ namespace NServiceKit.OrmLite
             sep = string.Empty;
             useFieldName = true;
             orderByProperties.Clear();
-            var property  = Visit(keySelector).ToString();
+            var property = Visit(keySelector).ToString();
             orderByProperties.Add(property + " ASC");
             BuildOrderByClauseInternal();
             return this;
@@ -310,7 +310,7 @@ namespace NServiceKit.OrmLite
         /// <typeparam name="TKey">Type of the key.</typeparam>
         /// <param name="keySelector">The key selector.</param>
         /// <returns>A SqlExpressionVisitor&lt;T&gt;</returns>
-        public virtual SqlExpressionVisitor<T> ThenBy<TKey> (Expression<Func<T,TKey>> keySelector)
+        public virtual SqlExpressionVisitor<T> ThenBy<TKey>(Expression<Func<T, TKey>> keySelector)
         {
             sep = string.Empty;
             useFieldName = true;
@@ -355,7 +355,7 @@ namespace NServiceKit.OrmLite
             if (orderByProperties.Count > 0)
             {
                 orderBy = "ORDER BY ";
-                foreach(var prop in orderByProperties)
+                foreach (var prop in orderByProperties)
                 {
                     orderBy += prop + ",";
                 }
@@ -773,7 +773,7 @@ namespace NServiceKit.OrmLite
             if (operand == "AND" || operand == "OR")
             {
                 var m = b.Left as MemberExpression;
-                if (m != null && m.Expression != null 
+                if (m != null && m.Expression != null
                     && m.Expression.NodeType == ExpressionType.Parameter)
                     left = new PartialSqlString(string.Format("{0}={1}", VisitMemberAccess(m), GetQuotedTrueValue()));
                 else
@@ -792,8 +792,8 @@ namespace NServiceKit.OrmLite
                     return new PartialSqlString(OrmLiteConfig.DialectProvider.GetQuotedValue(result, result.GetType()));
                 }
 
-                if(left as PartialSqlString == null)
-                    left = ((bool) left) ? GetTrueExpression() : GetFalseExpression();
+                if (left as PartialSqlString == null)
+                    left = ((bool)left) ? GetTrueExpression() : GetFalseExpression();
                 if (right as PartialSqlString == null)
                     right = ((bool)right) ? GetTrueExpression() : GetFalseExpression();
             }
@@ -835,7 +835,7 @@ namespace NServiceKit.OrmLite
                     left = OrmLiteConfig.DialectProvider.GetQuotedValue(left, left != null ? left.GetType() : null);
                 else if (right as PartialSqlString == null)
                     right = OrmLiteConfig.DialectProvider.GetQuotedValue(right, right != null ? right.GetType() : null);
-                    
+
             }
 
             if (operand == "=" && right.ToString().Equals("null", StringComparison.InvariantCultureIgnoreCase)) operand = "is";
@@ -847,7 +847,7 @@ namespace NServiceKit.OrmLite
                 case "COALESCE":
                     return new PartialSqlString(string.Format("{0}({1},{2})", operand, left, right));
                 default:
-                    return new PartialSqlString("(" + left + sep + operand + sep + right +")");
+                    return new PartialSqlString("(" + left + sep + operand + sep + right + ")");
             }
         }
 
@@ -864,7 +864,7 @@ namespace NServiceKit.OrmLite
                 if (propertyInfo.PropertyType.IsEnum)
                     return new EnumMemberAccess((PrefixFieldWithTableName ? OrmLiteConfig.DialectProvider.GetQuotedTableName(modelDef.ModelName) + "." : "") + GetQuotedColumnName(m.Member.Name), propertyInfo.PropertyType);
 
-                return new PartialSqlString((PrefixFieldWithTableName ? OrmLiteConfig.DialectProvider.GetQuotedTableName(modelDef.ModelName)+"." : "") + GetQuotedColumnName(m.Member.Name));
+                return new PartialSqlString((PrefixFieldWithTableName ? OrmLiteConfig.DialectProvider.GetQuotedTableName(modelDef.ModelName) + "." : "") + GetQuotedColumnName(m.Member.Name));
             }
 
             var member = Expression.Convert(m, typeof(object));
@@ -961,7 +961,7 @@ namespace NServiceKit.OrmLite
                         return !((bool)o);
 
                     if (IsFieldName(o))
-                        o = o + "=" +  GetQuotedTrueValue();
+                        o = o + "=" + GetQuotedTrueValue();
 
                     return new PartialSqlString("NOT (" + o + ")");
                 case ExpressionType.Convert:
@@ -983,8 +983,8 @@ namespace NServiceKit.OrmLite
                 return IsColumnAccess(m.Object as MethodCallExpression);
 
             var exp = m.Object as MemberExpression;
-            return exp != null 
-                && exp.Expression != null 
+            return exp != null
+                && exp.Expression != null
                 && exp.Expression.Type == typeof(T)
                 && exp.Expression.NodeType == ExpressionType.Parameter;
         }
@@ -997,7 +997,7 @@ namespace NServiceKit.OrmLite
             if (m.Method.DeclaringType == typeof(Sql))
                 return VisitSqlMethodCall(m);
 
-			if (IsArrayMethod(m))
+            if (IsArrayMethod(m))
                 return VisitArrayMethodCall(m);
 
             if (IsColumnAccess(m))
@@ -1159,7 +1159,7 @@ namespace NServiceKit.OrmLite
         /// <returns>The quoted true value.</returns>
         protected static object GetQuotedTrueValue()
         {
-            return new PartialSqlString(OrmLiteConfig.DialectProvider.GetQuotedValue(true, typeof (bool)));
+            return new PartialSqlString(OrmLiteConfig.DialectProvider.GetQuotedValue(true, typeof(bool)));
         }
 
         /// <summary>Gets quoted false value.</summary>
@@ -1195,7 +1195,7 @@ namespace NServiceKit.OrmLite
         /// <returns>A string.</returns>
         protected virtual string ApplyPaging(string sql)
         {
-            sql = sql + (string.IsNullOrEmpty(LimitExpression) ? "" :"\n" + LimitExpression);
+            sql = sql + (string.IsNullOrEmpty(LimitExpression) ? "" : "\n" + LimitExpression);
             return sql;
         }
 
@@ -1390,6 +1390,19 @@ namespace NServiceKit.OrmLite
             }
             return new PartialSqlString(statement);
         }
+
+        public string ToInsertWhereNotExistsStatement(object obj)
+        {
+            var sql = new StringBuilder();
+            var fieldDefs = modelDef.FieldDefinitions.Where(t => t.AutoIncrement == false && t.IsComputed == false).ToList();
+            sql.AppendFormat("Insert Into {0} ({1})", OrmLiteConfig.DialectProvider.GetQuotedTableName(modelDef), string.Join(",", fieldDefs.Select(t => OrmLiteConfig.DialectProvider.GetQuotedColumnName(t.FieldName)).ToArray()));
+            sql.Append("\n");
+            sql.AppendFormat("Select {0}", string.Join(",", fieldDefs.Select(t => t.GetQuotedValue(obj)).ToArray()));
+            sql.Append("\n");
+            BuildSelectExpression("1", false);
+            sql.AppendFormat(" where not exists({0} {1})", selectExpression, WhereExpression);
+            return sql.ToString();
+        }
     }
 
     /// <summary>A partial SQL string.</summary>
@@ -1431,7 +1444,8 @@ namespace NServiceKit.OrmLite
         /// illegal values.</exception>
         /// <param name="text">    The text.</param>
         /// <param name="enumType">The type of the enum.</param>
-        public EnumMemberAccess(string text, Type enumType) : base(text)
+        public EnumMemberAccess(string text, Type enumType)
+            : base(text)
         {
             if (!enumType.IsEnum) throw new ArgumentException("Type not valid", "enumType");
 
